@@ -11,7 +11,7 @@ export function Header() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
 
   return (
-    <>
+    <div>
       <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
@@ -186,6 +186,6 @@ export function Header() {
       )}
 
       <QuoteDialog isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
-    </>
+    </div>
   );
 }

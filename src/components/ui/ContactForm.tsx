@@ -56,7 +56,9 @@ export function ContactForm({ className }: ContactFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 bg-card p-8 rounded-xl shadow-sm border border-border"
+      className={`space-y-6 bg-card p-4 sm:p-8 rounded-xl shadow-sm border border-border ${
+        className || ""
+      }`}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div className="space-y-2">

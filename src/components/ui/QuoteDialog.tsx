@@ -40,14 +40,18 @@ export function QuoteDialog({ isOpen, onClose }: QuoteDialogProps) {
     <div
       ref={overlayRef}
       onClick={handleClickOutside}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center sm:p-4 animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-lg bg-background rounded-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b border-border">
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        aria-hidden="true"
+      />
+      <div className="relative w-full h-full sm:h-auto sm:max-w-lg bg-background sm:rounded-xl shadow-2xl animate-in fade-in zoom-in-95 slide-in-from-bottom-10 sm:slide-in-from-bottom-0 duration-200 flex flex-col">
+        <div className="flex items-center justify-between p-4 border-b border-border shrink-0">
           <div>
             <h2 className="text-xl font-bold font-heading">Request a Quote</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Tell us what you need and we'll get back to you shortly.
+              Tell us what you need and we'll get back to you.
             </p>
           </div>
           <button
@@ -56,7 +60,7 @@ export function QuoteDialog({ isOpen, onClose }: QuoteDialogProps) {
           >
             <span className="sr-only">Close</span>
             <svg
-              className="w-5 h-5"
+              className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -71,7 +75,7 @@ export function QuoteDialog({ isOpen, onClose }: QuoteDialogProps) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
           <ContactForm className="border-0 shadow-none p-0" />
         </div>
       </div>
