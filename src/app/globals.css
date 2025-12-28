@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #fdfcf8; /* Off-white / Rice paper */
@@ -25,30 +26,28 @@
   --ring: #1a4d2e;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #050e07; /* Deep Dark Green/Black */
-    --foreground: #ededed;
+.dark {
+  --background: #050e07; /* Deep Dark Green/Black */
+  --foreground: #ededed;
 
-    --primary: #4f9d69; /* Lighter green for dark mode pop */
-    --primary-foreground: #000000;
+  --primary: #4f9d69; /* Lighter green for dark mode pop */
+  --primary-foreground: #000000;
 
-    --secondary: #1a4d2e;
-    --secondary-foreground: #ffffff;
+  --secondary: #1a4d2e;
+  --secondary-foreground: #ffffff;
 
-    --accent: #f0b050;
-    --accent-foreground: #000000;
+  --accent: #f0b050;
+  --accent-foreground: #000000;
 
-    --muted: #1a261e;
-    --muted-foreground: #a1a1a1;
+  --muted: #1a261e;
+  --muted-foreground: #a1a1a1;
 
-    --card: #121e16;
-    --card-foreground: #ededed;
+  --card: #121e16;
+  --card-foreground: #ededed;
 
-    --border: #2a3d30;
-    --input: #2a3d30;
-    --ring: #4f9d69;
-  }
+  --border: #2a3d30;
+  --input: #2a3d30;
+  --ring: #4f9d69;
 }
 
 @theme inline {
