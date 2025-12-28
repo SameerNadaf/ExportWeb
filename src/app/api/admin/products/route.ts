@@ -120,17 +120,45 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "Missing ID" }, { status: 400 });
 
-    // Fetch product to know slugs for revalidation (optional but good practice)
-    // For now, simpler to just revalidate list pages
-    await adminDb.collection("products").doc(id).delete();
+    const productRef = adminDb.collection("products").doc(id);
+    const productSnap = await productRef.get();
+
+    if (!productSnap.exists) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    const productData = productSnap.data();
+
+    // Cleanup Cloudinary Images
+    if (
+      productData?.images &&
+      Array.isArray(productData.images) &&
+      productData.images.length > 0
+    ) {
+      // Import dynamically to avoid top-level issues if any
+      const { default: cloudinary } = await import("@/lib/cloudinary");
+
+      await Promise.all(
+        productData.images.map(async (img: any) => {
+          if (img.publicId) {
+            try {
+              await cloudinary.uploader.destroy(img.publicId);
+            } catch (err) {
+              console.error(`Failed to delete image ${img.publicId}:`, err);
+            }
+          }
+        })
+      );
+    }
+
+    await productRef.delete();
 
     revalidatePath("/products");
     revalidatePath("/");
-    // We cannot easily know the specific detail page URL without fetching before delete,
-    // but revalidating list is most important.
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Delete product error:", error);
     return NextResponse.json(
       { error: "Failed to delete product" },
       { status: 500 }
