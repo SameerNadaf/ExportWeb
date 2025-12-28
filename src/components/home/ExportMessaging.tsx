@@ -1,18 +1,34 @@
 export function ExportMessaging() {
   return (
-    <section className="py-20 bg-primary/5">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold font-heading text-primary mb-12">
-          Global Export Capabilities
-        </h2>
+    <section className="py-24 bg-gradient-to-b from-background to-primary/5 relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      <div className="absolute -left-[10%] top-[20%] w-[40%] h-[40%] bg-primary/3 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -right-[10%] bottom-[20%] w-[40%] h-[40%] bg-accent/3 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
-            <div className="h-12 w-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-4 block">
+            Why Choose Us?
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6">
+            Global Export Capabilities
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            We bridge the gap between premium organic farms and international
+            markets with our robust logistics and quality assurance.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8">
+          {/* Card 1 */}
+          <div className="group bg-card hover:bg-card/50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-border hover:border-primary/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300 z-0" />
+            <div className="h-14 w-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -23,19 +39,23 @@ export function ExportMessaging() {
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">Secure Packaging</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="text-xl font-bold mb-3 font-heading relative z-10">
+              Secure Packaging
+            </h3>
+            <p className="text-muted-foreground relative z-10">
               International standard packaging to ensure freshness and prevent
-              damage during transit.
+              damage during transit, tailored for sensitive produce.
             </p>
           </div>
 
-          <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
-            <div className="h-12 w-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+          {/* Card 2 */}
+          <div className="group bg-card hover:bg-card/50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-border hover:border-primary/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300 z-0" />
+            <div className="h-14 w-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -48,19 +68,23 @@ export function ExportMessaging() {
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">Global Logistics</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="text-xl font-bold mb-3 font-heading relative z-10">
+              Global Logistics
+            </h3>
+            <p className="text-muted-foreground relative z-10">
               Efficient supply chain network covering all major ports in Europe,
-              Americas, and Asia.
+              Americas, and Asia, ensuring timely delivery.
             </p>
           </div>
 
-          <div className="bg-card p-8 rounded-xl shadow-sm border border-border">
-            <div className="h-12 w-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+          {/* Card 3 */}
+          <div className="group bg-card hover:bg-card/50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-border hover:border-primary/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300 z-0" />
+            <div className="h-14 w-14 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -75,10 +99,12 @@ export function ExportMessaging() {
                 <polyline points="10 9 9 9 8 9" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">Documentation</h3>
-            <p className="text-muted-foreground text-sm">
+            <h3 className="text-xl font-bold mb-3 font-heading relative z-10">
+              Documentation Support
+            </h3>
+            <p className="text-muted-foreground relative z-10">
               Full support with phytosanitary certificates, origin forms, and
-              custom clearance docs.
+              custom clearance docs for hassle-free imports.
             </p>
           </div>
         </div>
