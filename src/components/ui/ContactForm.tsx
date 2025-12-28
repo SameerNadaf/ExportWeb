@@ -2,7 +2,11 @@
 
 import { useState, FormEvent } from "react";
 
-export function ContactForm() {
+interface ContactFormProps {
+  className?: string;
+}
+
+export function ContactForm({ className }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">(
     "idle"
   );
