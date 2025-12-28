@@ -1,7 +1,7 @@
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { CategoryFilter } from "@/components/products/CategoryFilter";
 import { adminDb } from "@/lib/firebase/admin";
-import { Product } from "@/types/firestore";
+import { Product, Category } from "@/types/firestore";
 
 export const metadata = {
   title: "Our Products | Anfal Global Export",
@@ -12,16 +12,35 @@ export const metadata = {
 export const revalidate = 60;
 
 export default async function ProductsPage() {
-  const snapshot = await adminDb
-    .collection("products")
-    .where("isActive", "==", true)
-    .orderBy("createdAt", "desc")
-    .get();
+  const [productSnap, categorySnap] = await Promise.all([
+    adminDb
+      .collection("products")
+      .where("isActive", "==", true)
+      .orderBy("createdAt", "desc")
+      .get(),
+    adminDb.collection("categories").where("isActive", "==", true).get(),
+  ]);
 
-  const products = snapshot.docs.map((doc) => ({
+  const products = productSnap.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      createdAt:
+        data.createdAt && typeof data.createdAt.toDate === "function"
+          ? data.createdAt.toDate().toISOString()
+          : new Date().toISOString(),
+      updatedAt:
+        data.updatedAt && typeof data.updatedAt.toDate === "function"
+          ? data.updatedAt.toDate().toISOString()
+          : new Date().toISOString(),
+    };
+  }) as unknown as Product[];
+
+  const categories = categorySnap.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
-  })) as unknown as Product[];
+  })) as unknown as Category[];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -35,7 +54,7 @@ export default async function ProductsPage() {
         </p>
       </div>
 
-      <CategoryFilter />
+      <CategoryFilter categories={categories} />
       <ProductGrid products={products} />
     </div>
   );

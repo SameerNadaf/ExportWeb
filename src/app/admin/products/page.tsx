@@ -18,13 +18,16 @@ export default async function AdminProductsPage() {
     return {
       id: doc.id,
       ...data,
-      // Convert Timestamps to serialized dates or allow them if Next.js supports it (it usually warns)
-      // For safety, let's treat them as any or convert to JSON-safe if strict
-      // Implementation Plan types used Timestamp, but for UI we might default to just passing the data.
-      // We'll cast to any to bypass strict type check on the server->client boundary for now
-      // as the Client Component will receive the serialized version.
-    } as unknown as Product;
-  });
+      createdAt:
+        data.createdAt && typeof data.createdAt.toDate === "function"
+          ? data.createdAt.toDate().toISOString()
+          : new Date().toISOString(),
+      updatedAt:
+        data.updatedAt && typeof data.updatedAt.toDate === "function"
+          ? data.updatedAt.toDate().toISOString()
+          : new Date().toISOString(),
+    };
+  }) as unknown as Product[];
 
   return (
     <div className="space-y-6">

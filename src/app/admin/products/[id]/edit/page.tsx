@@ -25,6 +25,14 @@ export default async function EditProductPage({
   const product = {
     id: doc.id,
     ...data,
+    createdAt:
+      data.createdAt && typeof data.createdAt.toDate === "function"
+        ? data.createdAt.toDate().toISOString()
+        : new Date().toISOString(),
+    updatedAt:
+      data.updatedAt && typeof data.updatedAt.toDate === "function"
+        ? data.updatedAt.toDate().toISOString()
+        : new Date().toISOString(),
   } as unknown as Product;
 
   const categories = catSnap.docs.map((d) => ({

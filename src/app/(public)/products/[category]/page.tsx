@@ -2,7 +2,7 @@ import { ProductGrid } from "@/components/products/ProductGrid";
 import { CategoryFilter } from "@/components/products/CategoryFilter";
 import { notFound } from "next/navigation";
 import { adminDb } from "@/lib/firebase/admin";
-import { Product } from "@/types/firestore";
+import { Product, Category } from "@/types/firestore";
 
 export const revalidate = 60; // ISR
 
@@ -35,27 +35,43 @@ export default async function CategoryPage({
   const { category } = await params;
 
   // Verify category exists
-  const catSnapshot = await adminDb
-    .collection("categories")
-    .where("slug", "==", category)
-    .get();
+  // Fetch Category, Products, and All Categories (for filter) in parallel
+  const [catSnapshot, productSnapshot, allCategoriesSnapshot] =
+    await Promise.all([
+      adminDb.collection("categories").where("slug", "==", category).get(),
+      adminDb
+        .collection("products")
+        .where("categorySlug", "==", category)
+        .where("isActive", "==", true)
+        .orderBy("createdAt", "desc")
+        .get(),
+      adminDb.collection("categories").where("isActive", "==", true).get(),
+    ]);
+
   if (catSnapshot.empty) {
     notFound();
   }
 
-  // Fetch Active Products in Category
-  // Note: Requires Index (categorySlug Asc + isActive Asc)
-  const productSnapshot = await adminDb
-    .collection("products")
-    .where("categorySlug", "==", category)
-    .where("isActive", "==", true)
-    .orderBy("createdAt", "desc")
-    .get();
+  const filteredProducts = productSnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      ...data,
+      createdAt:
+        data.createdAt && typeof data.createdAt.toDate === "function"
+          ? data.createdAt.toDate().toISOString()
+          : new Date().toISOString(),
+      updatedAt:
+        data.updatedAt && typeof data.updatedAt.toDate === "function"
+          ? data.updatedAt.toDate().toISOString()
+          : new Date().toISOString(),
+    };
+  }) as unknown as Product[];
 
-  const filteredProducts = productSnapshot.docs.map((doc) => ({
+  const categories = allCategoriesSnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
-  })) as unknown as Product[];
+  })) as unknown as Category[];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -68,7 +84,7 @@ export default async function CategoryPage({
         </p>
       </div>
 
-      <CategoryFilter currentCategory={category} />
+      <CategoryFilter currentCategory={category} categories={categories} />
       <ProductGrid products={filteredProducts} />
     </div>
   );

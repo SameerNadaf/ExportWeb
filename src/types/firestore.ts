@@ -15,8 +15,8 @@ export interface Product {
   origin: string;
   certifications: string[]; // e.g., ["USDA Organic", "ISO 9001"]
   isActive: boolean;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: Timestamp | string;
+  updatedAt: Timestamp | string;
 }
 
 export interface Category {
