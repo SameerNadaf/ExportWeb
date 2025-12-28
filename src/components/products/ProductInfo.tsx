@@ -27,7 +27,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <span className="font-medium text-foreground">{product.name}</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-primary mb-4 break-words">
           {product.name}
         </h1>
 
@@ -42,7 +42,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           ))}
         </div>
 
-        <p className="text-lg text-muted-foreground leading-relaxed">
+        <p className="text-base md:text-lg text-muted-foreground leading-relaxed break-words overflow-hidden">
           {product.description}
         </p>
       </div>
@@ -71,11 +71,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
       <div className="flex flex-col sm:flex-row gap-4">
         <Link
           href="/contact"
-          className="flex-1 inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="w-full sm:flex-1 inline-flex h-14 sm:h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         >
           Request Quote
         </Link>
-        <button className="flex-1 inline-flex h-12 items-center justify-center rounded-md border border-input bg-background px-8 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+        <button className="w-full sm:flex-1 inline-flex h-14 sm:h-12 items-center justify-center rounded-md border border-input bg-background px-8 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
           Download Specification
         </button>
       </div>

@@ -14,7 +14,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
 
   return (
     <div className="space-y-4">
-      <div className="aspect-square w-full rounded-2xl overflow-hidden bg-muted relative border border-border">
+      <div className="aspect-square md:aspect-square w-full rounded-2xl overflow-hidden bg-muted relative border border-border max-h-[400px] md:max-h-none">
         {/* Main Image */}
         {currentImage ? (
           // eslint-disable-next-line @next/next/no-img-element

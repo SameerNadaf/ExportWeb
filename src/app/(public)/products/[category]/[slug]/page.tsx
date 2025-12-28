@@ -71,9 +71,11 @@ export default async function ProductDetailPage({
   } as unknown as Product;
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-        <ProductGallery images={product.images || []} name={product.name} />
+    <div className="container mx-auto px-4 py-8 md:py-12 lg:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <ProductGallery images={product.images || []} name={product.name} />
+        </div>
         <ProductInfo product={product} />
       </div>
     </div>
