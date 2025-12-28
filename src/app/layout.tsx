@@ -14,8 +14,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Greenary Export | Premium Spices & Fruits",
-  description: "Exporting premium organic spices and fruits worldwide.",
+  title: "Anfal Global Export | Premium Spices, Fruits & Vegetables",
+  description:
+    "Exporting premium organic spices, fruits, and vegetables worldwide.",
 };
 
 export default function RootLayout({

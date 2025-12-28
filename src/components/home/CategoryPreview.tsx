@@ -14,7 +14,7 @@ export function CategoryPreview() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Spices Category */}
           <Link
             href="/products/spices"
@@ -58,6 +58,29 @@ export function CategoryPreview() {
             {/* Image Placeholder */}
             <div className="absolute inset-0 bg-secondary/20 flex items-center justify-center text-white/20 font-bold text-4xl">
               [Fruits Image]
+            </div>
+          </Link>
+
+          {/* Vegetables Category - NEW */}
+          <Link
+            href="/products/vegetables"
+            className="group relative h-[300px] w-full overflow-hidden rounded-2xl bg-muted block"
+          >
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 p-6 text-center">
+              <h3 className="text-3xl font-bold text-white mb-2">
+                Fresh Vegetables
+              </h3>
+              <p className="text-white/90 mb-6 max-w-sm">
+                Farm-fresh seasonal vegetables sourced daily.
+              </p>
+              <span className="inline-flex items-center text-sm font-medium text-white underline decoration-accent decoration-2 underline-offset-4 group-hover:decoration-white transition-all">
+                View Collection
+              </span>
+            </div>
+            {/* Image Placeholder */}
+            <div className="absolute inset-0 bg-green-800/20 flex items-center justify-center text-white/20 font-bold text-4xl">
+              [Veg Image]
             </div>
           </Link>
         </div>

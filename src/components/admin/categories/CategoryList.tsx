@@ -14,7 +14,9 @@ export function CategoryList({ categories }: CategoryListProps) {
   const [newLast, setNewLast] = useState("");
   const [newName, setNewName] = useState("");
   const [newSlug, setNewSlug] = useState("");
-  const [newType, setNewType] = useState<"spice" | "fruit">("spice");
+  const [newType, setNewType] = useState<
+    "spice" | "fruit" | "vegetable" | "other"
+  >("spice");
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -104,6 +106,8 @@ export function CategoryList({ categories }: CategoryListProps) {
             >
               <option value="spice">Spice</option>
               <option value="fruit">Fruit</option>
+              <option value="vegetable">Vegetable</option>
+              <option value="other">Other</option>
             </select>
           </div>
           <div className="flex gap-2">

@@ -4,8 +4,9 @@ import { adminDb } from "@/lib/firebase/admin";
 import { Product } from "@/types/firestore";
 
 export const metadata = {
-  title: "Our Products | Greenary Export",
-  description: "Explore our range of premium organic spices and fruits.",
+  title: "Our Products | Anfal Global Export",
+  description:
+    "Explore our range of premium organic spices, fruits, and vegetables.",
 };
 
 export const revalidate = 60;

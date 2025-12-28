@@ -14,8 +14,8 @@ export async function Footer() {
               Anfal<span className="text-accent">GlobalExport</span>
             </span>
             <p className="text-sm text-muted-foreground">
-              Premium quality organic spices and fruits exported directly from
-              the finest farms.
+              Premium quality organic spices, fruits, and vegetables exported
+              directly from the finest farms.
             </p>
             {/* Social Icons (Mini) */}
             <div className="flex gap-4 pt-2">
@@ -107,6 +107,14 @@ export async function Footer() {
                   className="hover:text-primary transition-colors"
                 >
                   Fruits
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/products/vegetables"
+                  className="hover:text-primary transition-colors"
+                >
+                  Vegetables
                 </Link>
               </li>
             </ul>

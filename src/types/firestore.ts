@@ -23,7 +23,7 @@ export interface Category {
   id?: string;
   name: string;
   slug: string;
-  type: "spice" | "fruit";
+  type: "spice" | "fruit" | "vegetable" | "other";
   isActive: boolean;
 }
 

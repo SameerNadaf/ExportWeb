@@ -2,14 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Product, ProductImage } from "@/types/firestore";
+import { Product, ProductImage, Category } from "@/types/firestore";
 
 interface ProductFormProps {
   initialData?: Product;
   isEdit?: boolean;
+  categories: Category[];
 }
 
-export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
+export function ProductForm({
+  initialData,
+  isEdit = false,
+  categories,
+}: ProductFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -18,7 +23,7 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
   const [name, setName] = useState(initialData?.name || "");
   const [slug, setSlug] = useState(initialData?.slug || "");
   const [category, setCategory] = useState(
-    initialData?.categorySlug || "spices"
+    initialData?.categorySlug || categories[0]?.slug || "spices"
   );
   const [origin, setOrigin] = useState(initialData?.origin || "");
   const [description, setDescription] = useState(
@@ -153,8 +158,11 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                 onChange={(e) => setCategory(e.target.value)}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
-                <option value="spices">Spices</option>
-                <option value="fruits">Fruits</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.slug}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </div>
 

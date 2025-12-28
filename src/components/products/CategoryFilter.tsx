@@ -9,6 +9,7 @@ export function CategoryFilter({ currentCategory }: CategoryFilterProps) {
     { label: "All Products", value: undefined, href: "/products" },
     { label: "Spices", value: "spices", href: "/products/spices" },
     { label: "Fruits", value: "fruits", href: "/products/fruits" },
+    { label: "Vegetables", value: "vegetables", href: "/products/vegetables" },
   ];
 
   return (

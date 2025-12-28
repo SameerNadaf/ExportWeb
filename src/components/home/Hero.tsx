@@ -18,8 +18,9 @@ export function Hero({ title, subtitle }: HeroProps) {
         <h1 className="text-4xl md:text-6xl font-bold font-heading tracking-tight mb-6 max-w-4xl">
           {title || (
             <>
-              Premium Organic Spices & Fruits <br className="hidden md:block" />{" "}
-              from <span className="text-accent">Nature's Finest Farms</span>
+              Premium Organic Spices, Fruits & Vegetables{" "}
+              <br className="hidden md:block" /> from{" "}
+              <span className="text-accent">Nature's Finest Farms</span>
             </>
           )}
         </h1>

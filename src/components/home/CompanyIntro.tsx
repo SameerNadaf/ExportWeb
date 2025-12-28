@@ -23,7 +23,8 @@ export function CompanyIntro() {
               At Greenary Export, we are passionate about sustainable
               agriculture and global trade. Founded with a mission to support
               local farmers while satisfying international demand, we specialize
-              in sourcing the highest grade organic spices and seasonal fruits.
+              in sourcing the highest grade organic spices, seasonal fruits, and
+              fresh vegetables.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our rigorous quality control ensures that only the freshest, most
