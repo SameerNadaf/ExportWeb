@@ -24,7 +24,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 z-50">
           <span className="text-xl font-bold font-heading text-primary tracking-tight">
-            Greenary<span className="text-accent">Export</span>
+            Anfal<span className="text-accent">GlobalExport</span>
           </span>
         </Link>
 
