@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Product } from "@/types/firestore";
@@ -10,15 +11,19 @@ interface ProductTableProps {
 
 export function ProductTable({ products }: ProductTableProps) {
   const router = useRouter();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   async function handleDelete(id: string) {
     if (!confirm("Are you sure you want to delete this product?")) return;
 
+    setDeletingId(id);
     try {
       await fetch(`/api/admin/products?id=${id}`, { method: "DELETE" });
       router.refresh();
     } catch (error) {
       alert("Failed to delete");
+    } finally {
+      setDeletingId(null);
     }
   }
 
@@ -82,9 +87,10 @@ export function ProductTable({ products }: ProductTableProps) {
                 <span className="mx-2 text-muted-foreground/30">|</span>
                 <button
                   onClick={() => product.id && handleDelete(product.id)}
-                  className="text-destructive hover:text-red-600 text-sm font-medium"
+                  disabled={deletingId === product.id}
+                  className="text-destructive hover:text-red-600 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Delete
+                  {deletingId === product.id ? "Deleting..." : "Delete"}
                 </button>
               </td>
             </tr>

@@ -19,6 +19,7 @@ export function CategoryList({ categories }: CategoryListProps) {
   >("spice");
 
   const [editId, setEditId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   function startEdit(cat: Category) {
     setEditId(cat.id || null);
@@ -30,11 +31,14 @@ export function CategoryList({ categories }: CategoryListProps) {
 
   async function handleDelete(id: string) {
     if (!confirm("Are you sure you want to delete this category?")) return;
+    setDeletingId(id);
     try {
       await fetch(`/api/admin/categories?id=${id}`, { method: "DELETE" });
       router.refresh();
     } catch (error) {
       alert("Failed to delete");
+    } finally {
+      setDeletingId(null);
     }
   }
 
@@ -97,9 +101,10 @@ export function CategoryList({ categories }: CategoryListProps) {
                   </button>
                   <button
                     onClick={() => cat.id && handleDelete(cat.id)}
-                    className="text-red-500 hover:underline"
+                    disabled={deletingId === cat.id}
+                    className="text-destructive hover:text-red-600 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Delete
+                    {deletingId === cat.id ? "Deleting..." : "Delete"}
                   </button>
                 </td>
               </tr>
