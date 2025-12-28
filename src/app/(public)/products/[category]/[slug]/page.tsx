@@ -1,0 +1,81 @@
+import { ProductGallery } from "@/components/products/ProductGallery";
+import { ProductInfo } from "@/components/products/ProductInfo";
+import { notFound } from "next/navigation";
+import { adminDb } from "@/lib/firebase/admin";
+import { Product } from "@/types/firestore";
+
+export const revalidate = 60; // ISR
+
+export async function generateStaticParams() {
+  const snapshot = await adminDb
+    .collection("products")
+    .where("isActive", "==", true)
+    .get();
+  return snapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      category: data.categorySlug,
+      slug: data.slug,
+    };
+  });
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const snapshot = await adminDb
+    .collection("products")
+    .where("slug", "==", slug)
+    .limit(1)
+    .get();
+  const product = snapshot.empty ? null : snapshot.docs[0].data();
+
+  if (!product) return { title: "Product Not Found" };
+
+  return {
+    title: `${product.name} | Greenary Export`,
+    description: product.description,
+  };
+}
+
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}) {
+  const { category, slug } = await params;
+
+  const snapshot = await adminDb
+    .collection("products")
+    .where("slug", "==", slug)
+    .where("isActive", "==", true)
+    .limit(1)
+    .get();
+
+  if (snapshot.empty) {
+    notFound();
+  }
+
+  const productData = snapshot.docs[0].data();
+  // Validate category match
+  if (productData.categorySlug !== category) {
+    notFound();
+  }
+
+  const product = {
+    id: snapshot.docs[0].id,
+    ...productData,
+  } as unknown as Product;
+
+  return (
+    <div className="container mx-auto px-4 py-12 md:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <ProductGallery images={product.images || []} name={product.name} />
+        <ProductInfo product={product} />
+      </div>
+    </div>
+  );
+}
