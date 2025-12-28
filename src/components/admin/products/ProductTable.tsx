@@ -41,7 +41,23 @@ export function ProductTable({ products }: ProductTableProps) {
               className="hover:bg-muted/10 transition-colors"
             >
               <td className="px-4 py-3 font-medium text-foreground">
-                {product.name}
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted border border-border">
+                    {product.images?.[0]?.url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={product.images[0].url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
+                        No IMG
+                      </div>
+                    )}
+                  </div>
+                  <span>{product.name}</span>
+                </div>
               </td>
               <td className="px-4 py-3 capitalize">{product.categorySlug}</td>
               <td className="px-4 py-3">{product.origin}</td>
