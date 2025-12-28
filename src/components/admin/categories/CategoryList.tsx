@@ -18,23 +18,54 @@ export function CategoryList({ categories }: CategoryListProps) {
     "spice" | "fruit" | "vegetable" | "other"
   >("spice");
 
+  const [editId, setEditId] = useState<string | null>(null);
+
+  function startEdit(cat: Category) {
+    setEditId(cat.id || null);
+    setNewName(cat.name);
+    setNewSlug(cat.slug);
+    setNewType(cat.type);
+    setIsAdding(true);
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Are you sure you want to delete this category?")) return;
+    try {
+      await fetch(`/api/admin/categories?id=${id}`, { method: "DELETE" });
+      router.refresh();
+    } catch (error) {
+      alert("Failed to delete");
+    }
+  }
+
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
     if (!newName || !newSlug) return;
 
+    const payload: any = { name: newName, slug: newSlug, type: newType };
+    if (editId) payload.id = editId;
+
     try {
       await fetch("/api/admin/categories", {
-        method: "POST",
+        method: "POST", // POST handles both create and update in our API
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newName, slug: newSlug, type: newType }),
+        body: JSON.stringify(payload),
       });
       setIsAdding(false);
+      setEditId(null);
       setNewName("");
       setNewSlug("");
       router.refresh();
     } catch (error) {
-      alert("Failed to add category");
+      alert("Failed to save category");
     }
+  }
+
+  function handleCancel() {
+    setIsAdding(false);
+    setEditId(null);
+    setNewName("");
+    setNewSlug("");
   }
 
   return (
@@ -57,10 +88,19 @@ export function CategoryList({ categories }: CategoryListProps) {
                 </td>
                 <td className="px-4 py-3">{cat.slug}</td>
                 <td className="px-4 py-3 capitalize">{cat.type}</td>
-                <td className="px-4 py-3 text-right">
-                  <span className="text-muted-foreground text-xs">
-                    Managed via DB
-                  </span>
+                <td className="px-4 py-3 text-right space-x-2">
+                  <button
+                    onClick={() => startEdit(cat)}
+                    className="text-primary hover:underline"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => cat.id && handleDelete(cat.id)}
+                    className="text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -83,7 +123,9 @@ export function CategoryList({ categories }: CategoryListProps) {
           onSubmit={handleAdd}
           className="bg-muted/20 p-4 rounded-lg border border-border space-y-4"
         >
-          <h3 className="font-bold">New Category</h3>
+          <h3 className="font-bold">
+            {editId ? "Edit Category" : "New Category"}
+          </h3>
           <div className="grid grid-cols-3 gap-4">
             <input
               placeholder="Name"
@@ -115,11 +157,11 @@ export function CategoryList({ categories }: CategoryListProps) {
               type="submit"
               className="px-4 py-1 bg-primary text-white rounded"
             >
-              Save
+              {editId ? "Update" : "Save"}
             </button>
             <button
               type="button"
-              onClick={() => setIsAdding(false)}
+              onClick={handleCancel}
               className="px-4 py-1 border rounded"
             >
               Cancel
@@ -128,7 +170,12 @@ export function CategoryList({ categories }: CategoryListProps) {
         </form>
       ) : (
         <button
-          onClick={() => setIsAdding(true)}
+          onClick={() => {
+            setEditId(null);
+            setNewName("");
+            setNewSlug("");
+            setIsAdding(true);
+          }}
           className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
         >
           Add Category

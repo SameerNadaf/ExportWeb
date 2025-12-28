@@ -48,3 +48,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Failed" }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  const session = await verifyAdminSession();
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id)
+      return NextResponse.json({ error: "ID required" }, { status: 400 });
+
+    await adminDb.collection("categories").doc(id).delete();
+    revalidatePath("/products");
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed" }, { status: 500 });
+  }
+}

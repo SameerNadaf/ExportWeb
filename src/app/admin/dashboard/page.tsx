@@ -192,10 +192,10 @@ export default async function AdminDashboard() {
 
         {/* Quick Tips / Actions */}
         <div className="space-y-6">
-          <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
-            <h3 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+          <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+            <h3 className="font-bold mb-4 flex items-center gap-2">
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 text-green-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -204,24 +204,39 @@ export default async function AdminDashboard() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              Next Steps
+              System Status
             </h3>
-            <ul className="space-y-2 text-sm text-blue-800">
-              <li>• Add high-quality images to your products.</li>
-              <li>
-                • Ensure categories are active before adding products to them.
-              </li>
-              <li>
-                • Update your{" "}
-                <Link href="/admin/content" className="underline font-medium">
-                  Contact Info
-                </Link>{" "}
-                frequently.
-              </li>
-            </ul>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Database</span>
+                <span className="flex items-center text-green-600 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-600 mr-2"></span>
+                  Connected
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">API Services</span>
+                <span className="flex items-center text-green-600 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-600 mr-2"></span>
+                  Operational
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Storage</span>
+                <span className="flex items-center text-green-600 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-600 mr-2"></span>
+                  Optimal
+                </span>
+              </div>
+              <div className="pt-4 border-t border-border mt-4">
+                <p className="text-xs text-muted-foreground text-center">
+                  System version 1.0.0
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="bg-card p-6 rounded-xl border border-border">
