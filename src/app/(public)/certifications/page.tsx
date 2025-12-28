@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Distinctions & Certifications | Greenary Export",
   description:
@@ -74,12 +76,12 @@ export default function CertificationsPage() {
           Need to verify our credentials? We are happy to provide copies of our
           certificates upon request.
         </p>
-        <a
+        <Link
           href="/contact"
-          className="inline-flex h-10 items-center justify-center rounded-md bg-white border border-input px-8 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         >
           Contact Compliance Team
-        </a>
+        </Link>
       </div>
     </div>
   );

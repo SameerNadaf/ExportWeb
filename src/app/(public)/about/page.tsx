@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { adminDb } from "@/lib/firebase/admin";
 
 export const metadata = {
@@ -49,8 +50,13 @@ export default async function AboutPage() {
               and transparency.
             </p>
           </div>
-          <div className="h-[400px] bg-muted rounded-2xl flex items-center justify-center text-muted-foreground">
-            [Mission Image Placeholder]
+          <div className="h-[400px] relative bg-muted rounded-2xl overflow-hidden shadow-lg">
+            <Image
+              src="/assets/images/mission-vision.png"
+              alt="Our Global Vision"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </section>

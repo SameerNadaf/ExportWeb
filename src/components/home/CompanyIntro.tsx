@@ -1,15 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function CompanyIntro() {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="relative h-[400px] w-full rounded-2xl overflow-hidden bg-muted">
-            {/* Placeholder for an actual image later */}
-            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-muted-foreground/10">
-              [Company/Farm Image Placeholder]
-            </div>
+          <div className="relative h-[400px] w-full rounded-2xl overflow-hidden bg-muted shadow-xl">
+            <Image
+              src="/assets/images/farm-intro.png"
+              alt="Sustainable Organic Farming"
+              fill
+              className="object-cover"
+            />
           </div>
 
           <div className="space-y-6">

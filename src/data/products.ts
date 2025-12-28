@@ -21,7 +21,7 @@ export const products: Product[] = [
     description:
       "Premium quality Tellicherry black pepper, known for its bold flavor and aroma.",
     origin: "Kerala, India",
-    imageUrl: "/placeholder-spice.jpg",
+    imageUrl: "/assets/images/category-spices.png",
     certifications: ["USDA Organic", "Fair Trade"],
   },
   {
@@ -32,7 +32,7 @@ export const products: Product[] = [
     description:
       "High curcumin content turmeric powder with potent anti-inflammatory properties.",
     origin: "Andhra Pradesh, India",
-    imageUrl: "/placeholder-spice.jpg",
+    imageUrl: "/assets/images/category-spices.png",
     certifications: ["USDA Organic", "ISO 9001"],
   },
   {
@@ -42,7 +42,7 @@ export const products: Product[] = [
     category: "spices",
     description: "Hand-picked green cardamom pods with intense fragrance.",
     origin: "Idukki, India",
-    imageUrl: "/placeholder-spice.jpg",
+    imageUrl: "/assets/images/category-spices.png",
     certifications: ["Global GAP"],
   },
   {
@@ -52,7 +52,7 @@ export const products: Product[] = [
     category: "spices",
     description: "True Ceylon cinnamon quills, delicate and sweet.",
     origin: "Sri Lanka",
-    imageUrl: "/placeholder-spice.jpg",
+    imageUrl: "/assets/images/category-spices.png",
     certifications: ["USDA Organic"],
   },
 
@@ -65,7 +65,7 @@ export const products: Product[] = [
     description:
       "The king of mangoes, famous for its rich sweetness and non-fibrous texture.",
     origin: "Ratnagiri, India",
-    imageUrl: "/placeholder-fruit.jpg",
+    imageUrl: "/assets/images/category-fruits.png",
     certifications: ["Global GAP"],
   },
   {
@@ -76,7 +76,7 @@ export const products: Product[] = [
     description:
       "Ruby red arils with a sweet-tart taste, packed with antioxidants.",
     origin: "Maharashtra, India",
-    imageUrl: "/placeholder-fruit.jpg",
+    imageUrl: "/assets/images/category-fruits.png",
     certifications: ["Global GAP"],
   },
   {
@@ -87,7 +87,7 @@ export const products: Product[] = [
     description:
       "Premium export-quality bananas, uniform size and blemish-free.",
     origin: "Tamil Nadu, India",
-    imageUrl: "/placeholder-fruit.jpg",
+    imageUrl: "/assets/images/category-fruits.png",
     certifications: ["Phytosanitary Certified"],
   },
 ];

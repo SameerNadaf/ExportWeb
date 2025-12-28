@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function WhyChooseUs() {
   return (
     <section className="py-20 bg-muted/30">
@@ -15,8 +17,13 @@ export function WhyChooseUs() {
               on trust, quality, and ethical sourcing.
             </p>
             <div className="mt-8">
-              <div className="h-64 w-full bg-muted rounded-xl flex items-center justify-center text-muted-foreground">
-                [Trust/Handshake Image Placeholder]
+              <div className="h-64 w-full bg-muted rounded-xl relative overflow-hidden flex items-center justify-center text-muted-foreground shadow-sm">
+                <Image
+                  src="/assets/images/quality-handshake.png"
+                  alt="Quality and Trust"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>

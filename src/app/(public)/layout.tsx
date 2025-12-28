@@ -12,10 +12,8 @@ export default function PublicLayoutWrapper({
       className="flex flex-col min-h-screen relative"
       suppressHydrationWarning
     >
-      <div className="w-full z-50">
-        <Header />
-      </div>
-      <main className="flex-1">{children}</main>
+      <Header />
+      <main className="flex-1 pt-16">{children}</main>
       <Footer />
     </div>
   );
