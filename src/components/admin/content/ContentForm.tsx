@@ -15,6 +15,14 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
   const [email, setEmail] = useState(contactData?.value?.email || "");
   const [address, setAddress] = useState(contactData?.value?.address || "");
 
+  // Social Media State
+  const [whatsapp, setWhatsapp] = useState(contactData?.value?.whatsapp || "");
+  const [linkedin, setLinkedin] = useState(contactData?.value?.linkedin || "");
+  const [instagram, setInstagram] = useState(
+    contactData?.value?.instagram || ""
+  );
+  const [facebook, setFacebook] = useState(contactData?.value?.facebook || "");
+
   // Home State
   const [heroTitle, setHeroTitle] = useState(homeData?.value?.heroTitle || "");
   const [mission, setMission] = useState(homeData?.value?.mission || "");
@@ -22,13 +30,21 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
   async function handleSave() {
     setLoading(true);
     try {
-      // Save Contact
+      // Save Contact & Socials
       await fetch("/api/admin/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           key: "contact",
-          value: { phone, email, address },
+          value: {
+            phone,
+            email,
+            address,
+            whatsapp,
+            linkedin,
+            instagram,
+            facebook,
+          },
         }),
       });
 
@@ -83,6 +99,50 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
               onChange={(e) => setAddress(e.target.value)}
               rows={3}
               className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background resize-y"
+            />
+          </div>
+        </div>
+
+        <h3 className="text-sm font-bold pt-4 text-muted-foreground uppercase tracking-wider">
+          Social Media Links
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              WhatsApp Number (with country code)
+            </label>
+            <input
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+              placeholder="e.g. 919876543210"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">LinkedIn URL</label>
+            <input
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+              placeholder="https://linkedin.com/..."
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Instagram URL</label>
+            <input
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+              placeholder="https://instagram.com/..."
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Facebook URL</label>
+            <input
+              value={facebook}
+              onChange={(e) => setFacebook(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+              placeholder="https://facebook.com/..."
             />
           </div>
         </div>
