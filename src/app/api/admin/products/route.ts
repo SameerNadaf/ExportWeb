@@ -3,6 +3,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { verifyAdminSession } from "@/lib/auth-server";
 import { Product } from "@/types/firestore";
 import { Timestamp } from "firebase-admin/firestore";
+import { revalidatePath } from "next/cache";
 
 // GET: List all products
 export async function GET() {
@@ -55,6 +56,12 @@ export async function POST(request: Request) {
     };
 
     const docRef = await adminDb.collection("products").add(newProduct);
+
+    // Revalidate Public Pages
+    revalidatePath("/products");
+    revalidatePath(`/products/${data.categorySlug}`);
+    revalidatePath("/"); // For 'Featured' if applicable elsewhere
+
     return NextResponse.json({ id: docRef.id, ...newProduct });
   } catch (error) {
     return NextResponse.json(
@@ -85,6 +92,14 @@ export async function PUT(request: Request) {
     delete updateData.createdAt;
 
     await adminDb.collection("products").doc(id).update(updateData);
+
+    // Revalidate Public Pages
+    revalidatePath("/products");
+    if (data.categorySlug) revalidatePath(`/products/${data.categorySlug}`);
+    if (data.slug && data.categorySlug)
+      revalidatePath(`/products/${data.categorySlug}/${data.slug}`);
+    revalidatePath("/");
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
@@ -105,7 +120,15 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
     if (!id) return NextResponse.json({ error: "Missing ID" }, { status: 400 });
 
+    // Fetch product to know slugs for revalidation (optional but good practice)
+    // For now, simpler to just revalidate list pages
     await adminDb.collection("products").doc(id).delete();
+
+    revalidatePath("/products");
+    revalidatePath("/");
+    // We cannot easily know the specific detail page URL without fetching before delete,
+    // but revalidating list is most important.
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(

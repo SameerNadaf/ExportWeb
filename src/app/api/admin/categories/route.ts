@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { adminDb } from "@/lib/firebase/admin";
 import { verifyAdminSession } from "@/lib/auth-server";
-import { Category } from "@/types/firestore";
+import { revalidatePath } from "next/cache";
 
 export async function GET() {
   const session = await verifyAdminSession();
@@ -31,12 +31,17 @@ export async function POST(request: Request) {
     // Check if updating or creating
     if (data.id) {
       await adminDb.collection("categories").doc(data.id).update(data);
+      // Revalidate
+      revalidatePath("/products");
+      if (data.slug) revalidatePath(`/products/${data.slug}`);
       return NextResponse.json({ success: true });
     } else {
       const docRef = await adminDb.collection("categories").add({
         ...data,
         isActive: true,
       });
+      // Revalidate
+      revalidatePath("/products");
       return NextResponse.json({ id: docRef.id });
     }
   } catch (error) {

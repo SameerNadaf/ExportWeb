@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { adminDb } from "@/lib/firebase/admin";
 import { verifyAdminSession } from "@/lib/auth-server";
+import { revalidatePath } from "next/cache";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -37,6 +38,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Key required" }, { status: 400 });
 
     await adminDb.collection("content").doc(data.key).set(data);
+
+    // Revalidate
+    if (data.key === "home") revalidatePath("/");
+    if (data.key === "contact") revalidatePath("/contact");
+    revalidatePath("/about"); // About also uses home data for Mission
+
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed" }, { status: 500 });
