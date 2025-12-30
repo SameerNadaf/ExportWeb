@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -14,10 +15,15 @@ export function Header() {
     <div className="fixed top-0 left-0 right-0 z-50 w-full">
       <header className="w-full border-b border-border bg-background/80 backdrop-blur-md">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold font-heading text-primary">
-              Anfal<span className="text-accent">GlobalExport</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/assets/logos/header_logo.png"
+              alt="Anfal Global Export"
+              width={180}
+              height={40}
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
