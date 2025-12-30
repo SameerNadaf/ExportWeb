@@ -11,7 +11,7 @@ export const metadata = {
 export const revalidate = 60;
 
 export default async function AboutPage() {
-  const doc = await adminDb.collection("content").doc("home").get();
+  const doc = await adminDb.collection("content").doc("about").get();
   const data = doc.exists ? doc.data()?.value : {};
 
   return (
@@ -45,9 +45,8 @@ export default async function AboutPage() {
               Our Vision
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              To become the world's most trusted partner in the organic food
-              supply chain, setting the standard for quality, sustainability,
-              and transparency.
+              {data?.vision ||
+                "To become the world's most trusted partner in the organic food supply chain, setting the standard for quality, sustainability, and transparency."}
             </p>
           </div>
           <div className="h-[400px] relative bg-muted rounded-2xl overflow-hidden shadow-lg">
