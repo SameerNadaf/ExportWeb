@@ -133,7 +133,7 @@ export async function Footer() {
         </div>
 
         {/* Bottom Bar with Social Icons and Copyright */}
-        <div className="mt-8 border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <section className="mt-8 border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           {/* Social Icons */}
           <div className="flex gap-4">
             {data?.whatsapp && (
@@ -211,7 +211,7 @@ export async function Footer() {
             © {new Date().getFullYear()} Anfal Global Export. All rights
             reserved.
           </span>
-        </div>
+        </section>
       </div>
     </footer>
   );
