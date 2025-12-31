@@ -44,7 +44,7 @@ export default async function ProductsPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="mb-10">
+      <div className="mb-10 animate-fade-in-up">
         <h1 className="text-4xl font-bold font-heading text-primary mb-4">
           Our Products
         </h1>
