@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function WhyChooseUs() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-muted/30 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-16">
           <motion.div
