@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Product } from "@/types/firestore";
 import { motion } from "framer-motion";
 
@@ -22,10 +23,12 @@ export function ProductCard({ product }: ProductCardProps) {
       >
         <div className="relative aspect-square w-full bg-muted overflow-hidden">
           {product.images && product.images.length > 0 ? (
-            <img
+            <Image
               src={product.images[0].url}
               alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
