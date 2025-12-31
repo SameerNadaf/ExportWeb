@@ -54,7 +54,7 @@ export function AboutContent({ data }: AboutContentProps) {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 container mx-auto px-4">
+      <section className="py-20 container mx-auto px-4 overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}

@@ -23,7 +23,7 @@ export function ContactContent({ data }: ContactContentProps) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-20">
+    <div className="container mx-auto px-4 py-12 md:py-20 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
