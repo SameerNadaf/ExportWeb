@@ -6,6 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { QuoteDialog } from "@/components/ui/QuoteDialog";
+import { motion } from "framer-motion";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,61 +17,56 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-50 w-full"
       suppressHydrationWarning
     >
-      <header className="w-full border-b border-border bg-background/80 backdrop-blur-md">
+      <motion.header
+        className="w-full border-b border-border bg-background/80 backdrop-blur-md"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <Image
-              src="/assets/logos/header_logo.png"
-              alt="Anfal Global Export"
-              width={180}
-              height={40}
-              className="h-12 w-auto object-contain"
-              priority
-            />
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Image
+                src="/assets/logos/header_logo.png"
+                alt="Anfal Global Export"
+                width={180}
+                height={40}
+                className="h-12 w-auto object-contain"
+                priority
+              />
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/products"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Products
-            </Link>
-            <Link
-              href="/certifications"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Certifications
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              About Us
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
+            {[
+              { href: "/", label: "Home" },
+              { href: "/products", label: "Products" },
+              { href: "/certifications", label: "Certifications" },
+              { href: "/about", label: "About Us" },
+              { href: "/contact", label: "Contact" },
+            ].map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              </Link>
+            ))}
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsQuoteOpen(true)}
               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               Get Quote
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,7 +108,7 @@ export function Header() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu Overlay - Moved outside header for proper stacking */}
       {isMenuOpen && (

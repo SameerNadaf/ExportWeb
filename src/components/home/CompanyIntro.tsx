@@ -1,21 +1,36 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export function CompanyIntro() {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="relative h-[400px] w-full rounded-2xl overflow-hidden bg-muted shadow-xl">
+          <motion.div
+            className="relative h-[400px] w-full rounded-2xl overflow-hidden bg-muted shadow-xl"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <Image
               src="/assets/images/farm-intro.png"
               alt="Sustainable Organic Farming"
               fill
               className="object-cover"
             />
-          </div>
+          </motion.div>
 
-          <div className="space-y-6">
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="text-sm font-bold tracking-widest text-secondary uppercase">
               Who We Are
             </h2>
@@ -54,7 +69,7 @@ export function CompanyIntro() {
                 </svg>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
