@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ProductImage } from "@/types/firestore";
 
 interface ProductGalleryProps {
@@ -17,12 +18,16 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
       <div className="aspect-square md:aspect-square w-full rounded-2xl overflow-hidden bg-muted relative border border-border max-h-[400px] md:max-h-none">
         {/* Main Image */}
         {currentImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={currentImage.url}
-            alt={name}
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={currentImage.url}
+              alt={name}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/30 font-bold text-4xl bg-secondary/5">
             {name.charAt(0)}
@@ -41,11 +46,15 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img.url}
-                alt={`${name} ${i + 1}`}
-                className="w-full h-full object-cover"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={img.url}
+                  alt={`${name} ${i + 1}`}
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           ))}
         </div>

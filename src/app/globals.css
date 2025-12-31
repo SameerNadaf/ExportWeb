@@ -27,26 +27,26 @@
 }
 
 .dark {
-  --background: #050e07; /* Deep Dark Green/Black */
+  --background: #09090b; /* Zinc 950 - Premium Black */
   --foreground: #ededed;
 
-  --primary: #4f9d69; /* Lighter green for dark mode pop */
+  --primary: #4f9d69; /* Keep original green */
   --primary-foreground: #000000;
 
-  --secondary: #1a4d2e;
+  --secondary: #206c3e; /* Keep original secondary green */
   --secondary-foreground: #ffffff;
 
-  --accent: #f0b050;
+  --accent: #f0b050; /* Keep original amber */
   --accent-foreground: #000000;
 
-  --muted: #1a261e;
-  --muted-foreground: #a1a1a1;
+  --muted: #27272a; /* Zinc 800 - Neutral */
+  --muted-foreground: #a1a1aa;
 
-  --card: #121e16;
+  --card: #18181b; /* Zinc 900 - Neutral */
   --card-foreground: #ededed;
 
-  --border: #2a3d30;
-  --input: #2a3d30;
+  --border: #27272a; /* Neutral border */
+  --input: #27272a;
   --ring: #4f9d69;
 }
 

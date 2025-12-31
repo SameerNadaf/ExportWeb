@@ -1,24 +1,143 @@
 import Link from "next/link";
+import Image from "next/image";
 import { adminDb } from "@/lib/firebase/admin";
+import { FooterAnimator } from "./FooterAnimator";
 
 export async function Footer() {
   const doc = await adminDb.collection("content").doc("contact").get();
   const data = doc.exists ? doc.data()?.value : {};
 
   return (
-    <footer className="w-full border-t border-border bg-muted/30">
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <span className="text-xl font-bold font-heading text-primary">
-              Anfal<span className="text-accent">GlobalExport</span>
-            </span>
-            <p className="text-sm text-muted-foreground">
-              Premium quality organic spices, fruits, and vegetables exported
-              directly from the finest farms.
-            </p>
-            {/* Social Icons (Mini) */}
-            <div className="flex gap-4 pt-2">
+    <FooterAnimator>
+      <footer className="w-full border-t border-border bg-muted/30">
+        <div className="container mx-auto px-4 py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div className="space-y-4">
+              <Image
+                src="/assets/logos/large_logo.png"
+                alt="Anfal Global Export"
+                width={200}
+                height={60}
+                className="h-20 w-auto object-contain"
+              />
+              <p className="text-sm text-muted-foreground">
+                Premium quality organic spices, fruits, and vegetables exported
+                directly from the finest farms.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold">Products</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <Link
+                    href="/products/spices"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Spices
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/products/fruits"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Fruits
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/products/vegetables"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Vegetables
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold">Company</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <Link
+                    href="/about"
+                    className="hover:text-primary transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/certifications"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Certifications
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold">Legal</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <Link
+                    href="/privacy"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Terms of Use
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold">Contact</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <a
+                    href={`mailto:${data?.email || "info@greenaryexport.com"}`}
+                    className="hover:text-primary"
+                  >
+                    {data?.email || "info@greenaryexport.com"}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${data?.phone || ""}`}
+                    className="hover:text-primary"
+                  >
+                    {data?.phone || "+1 (555) 123-4567"}
+                  </a>
+                </li>
+                <li className="whitespace-pre-line text-xs pt-2 opacity-80">
+                  {data?.address || ""}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Bar with Social Icons and Copyright */}
+          <section className="mt-8 border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            {/* Social Icons */}
+            <div className="flex gap-4">
               {data?.whatsapp && (
                 <a
                   href={`https://wa.me/${data.whatsapp}`}
@@ -75,7 +194,7 @@ export async function Footer() {
                   href={data.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-blue-700 transition-colors"
+                  className="text-muted-foreground hover:text-blue-600 transition-colors"
                 >
                   <span className="sr-only">Facebook</span>
                   <svg
@@ -88,106 +207,15 @@ export async function Footer() {
                 </a>
               )}
             </div>
-          </div>
 
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold">Products</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="/products/spices"
-                  className="hover:text-primary transition-colors"
-                >
-                  Spices
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/fruits"
-                  className="hover:text-primary transition-colors"
-                >
-                  Fruits
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/vegetables"
-                  className="hover:text-primary transition-colors"
-                >
-                  Vegetables
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold">Company</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-primary transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/certifications"
-                  className="hover:text-primary transition-colors"
-                >
-                  Certifications
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-primary transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold">Contact</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a
-                  href={`mailto:${data?.email || "info@greenaryexport.com"}`}
-                  className="hover:text-primary"
-                >
-                  {data?.email || "info@greenaryexport.com"}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${data?.phone || ""}`}
-                  className="hover:text-primary"
-                >
-                  {data?.phone || "+1 (555) 123-4567"}
-                </a>
-              </li>
-              <li className="whitespace-pre-line text-xs pt-2 opacity-80">
-                {data?.address || ""}
-              </li>
-            </ul>
-          </div>
+            {/* Copyright */}
+            <span className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Anfal Global Export. All rights
+              reserved.
+            </span>
+          </section>
         </div>
-        <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground flex justify-between items-center">
-          <span>
-            © {new Date().getFullYear()} Anfal Global Export. All rights
-            reserved.
-          </span>
-          <Link
-            href="/admin/login"
-            className="opacity-0 hover:opacity-100 transition-opacity"
-          >
-            Admin
-          </Link>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </FooterAnimator>
   );
 }

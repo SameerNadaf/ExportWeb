@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { motion } from "framer-motion";
 
 interface ContactFormProps {
   className?: string;
@@ -23,7 +24,11 @@ export function ContactForm({ className }: ContactFormProps) {
 
   if (status === "success") {
     return (
-      <div className="bg-primary/5 border border-primary/20 rounded-xl p-8 text-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-primary/5 border border-primary/20 rounded-xl p-8 text-center"
+      >
         <div className="h-16 w-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
           <svg
             className="w-8 h-8"
@@ -49,7 +54,7 @@ export function ContactForm({ className }: ContactFormProps) {
         >
           Send another message
         </button>
-      </div>
+      </motion.div>
     );
   }
 
@@ -112,7 +117,7 @@ export function ContactForm({ className }: ContactFormProps) {
           id="message"
           name="message"
           required
-          rows={5}
+          rows={7}
           className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
           placeholder="Tell us about your requirements..."
         />

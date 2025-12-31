@@ -4,10 +4,10 @@ import { useState } from "react";
 
 interface ContentFormProps {
   contactData: any;
-  homeData: any;
+  aboutData: any;
 }
 
-export function ContentForm({ contactData, homeData }: ContentFormProps) {
+export function ContentForm({ contactData, aboutData }: ContentFormProps) {
   const [loading, setLoading] = useState(false);
 
   // Contact State
@@ -23,9 +23,13 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
   );
   const [facebook, setFacebook] = useState(contactData?.value?.facebook || "");
 
-  // Home State
-  const [heroTitle, setHeroTitle] = useState(homeData?.value?.heroTitle || "");
-  const [mission, setMission] = useState(homeData?.value?.mission || "");
+  // About Page State
+  const [aboutMission, setAboutMission] = useState(
+    aboutData?.value?.mission || ""
+  );
+  const [aboutVision, setAboutVision] = useState(
+    aboutData?.value?.vision || ""
+  );
 
   async function handleSave() {
     setLoading(true);
@@ -48,13 +52,13 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
         }),
       });
 
-      // Save Home
+      // Save About Page Content
       await fetch("/api/admin/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          key: "home",
-          value: { heroTitle, mission },
+          key: "about",
+          value: { mission: aboutMission, vision: aboutVision },
         }),
       });
 
@@ -150,25 +154,26 @@ export function ContentForm({ contactData, homeData }: ContentFormProps) {
 
       <div className="space-y-4">
         <h2 className="text-xl font-bold border-b border-border pb-2">
-          Homepage Text
+          About Page Content
         </h2>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Hero Title</label>
-          <input
-            value={heroTitle}
-            onChange={(e) => setHeroTitle(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+          <label className="text-sm font-medium">Mission Statement</label>
+          <textarea
+            value={aboutMission}
+            onChange={(e) => setAboutMission(e.target.value)}
+            rows={3}
+            className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background resize-y"
+            placeholder="Our mission is to..."
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">
-            Mission Statement (Short)
-          </label>
+          <label className="text-sm font-medium">Vision Statement</label>
           <textarea
-            value={mission}
-            onChange={(e) => setMission(e.target.value)}
+            value={aboutVision}
+            onChange={(e) => setAboutVision(e.target.value)}
             rows={3}
             className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background resize-y"
+            placeholder="Our vision is to..."
           />
         </div>
       </div>
