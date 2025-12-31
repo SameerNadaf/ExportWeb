@@ -24,6 +24,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
               alt={name}
               fill
               priority
+              unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
@@ -51,6 +52,7 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                   src={img.url}
                   alt={`${name} ${i + 1}`}
                   fill
+                  unoptimized
                   sizes="25vw"
                   className="object-cover"
                 />
