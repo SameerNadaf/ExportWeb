@@ -13,12 +13,9 @@ export function Header() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
 
   return (
-    <div
-      className="fixed top-0 left-0 right-0 z-50 w-full"
-      suppressHydrationWarning
-    >
+    <>
       <motion.header
-        className="w-full border-b border-border bg-background/80 backdrop-blur-md"
+        className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -109,8 +106,6 @@ export function Header() {
           </div>
         </div>
       </motion.header>
-
-      {/* Mobile Menu Overlay - Moved outside header for proper stacking */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 z-[60] bg-background animate-in slide-in-from-right-10 duration-200">
           <div className="flex flex-col h-full">
@@ -191,6 +186,6 @@ export function Header() {
       )}
 
       <QuoteDialog isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
-    </div>
+    </>
   );
 }
