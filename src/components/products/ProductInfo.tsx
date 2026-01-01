@@ -71,13 +71,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
       <div className="flex flex-col sm:flex-row gap-4">
         <Link
           href="/contact"
-          className="w-full sm:flex-1 inline-flex h-14 sm:h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="w-full inline-flex h-14 sm:h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         >
           Request Quote
         </Link>
-        <button className="w-full sm:flex-1 inline-flex h-14 sm:h-12 items-center justify-center rounded-md border border-input bg-background px-8 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-          Download Specification
-        </button>
       </div>
     </div>
   );
