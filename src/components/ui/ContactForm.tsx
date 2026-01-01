@@ -22,6 +22,7 @@ export function ContactForm({ className }: ContactFormProps) {
       email: formData.get("email"),
       subject: formData.get("subject"),
       message: formData.get("message"),
+      website: formData.get("website"), // Honeypot
     };
 
     try {
@@ -143,6 +144,18 @@ export function ContactForm({ className }: ContactFormProps) {
           rows={7}
           className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
           placeholder="Tell us about your requirements..."
+        />
+      </div>
+
+      {/* Honeypot Field (Hidden) */}
+      <div className="hidden">
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 
