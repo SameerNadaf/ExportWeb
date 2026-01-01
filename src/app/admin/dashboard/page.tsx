@@ -255,11 +255,10 @@ export default async function AdminDashboard() {
                 Edit Site Content
               </Link>
               <Link
-                href="/"
-                target="_blank"
+                href="/admin/messages"
                 className="block p-4 rounded-lg bg-muted hover:bg-muted/80 text-center transition-colors col-span-2"
               >
-                View Public Website →
+                Inbox
               </Link>
             </div>
           </div>

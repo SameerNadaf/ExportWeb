@@ -136,7 +136,7 @@ export function AdminSidebar() {
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-2 text-xs text-slate-500 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-sm text-slate-500 hover:text-white transition-colors"
         >
           <svg
             className="w-4 h-4"
@@ -158,7 +158,7 @@ export function AdminSidebar() {
             await fetch("/api/auth/logout", { method: "POST" });
             window.location.href = "/admin/login";
           }}
-          className="flex items-center gap-2 text-xs text-red-500 hover:text-red-400 transition-colors w-full"
+          className="flex items-center gap-2 text-sm text-red-500 hover:text-red-400 transition-colors w-full"
         >
           <svg
             className="w-4 h-4"
