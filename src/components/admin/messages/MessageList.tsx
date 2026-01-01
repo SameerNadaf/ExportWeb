@@ -122,54 +122,63 @@ export function MessageList({ messages }: MessageListProps) {
                 <h2 className="text-xl font-bold font-heading mb-2">
                   {selectedMessage.subject}
                 </h2>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">
-                    {selectedMessage.name}
-                  </span>
-                  <span className="hidden sm:inline">&bull;</span>
-                  <span>{selectedMessage.email}</span>
-                  <span className="hidden sm:inline">&bull;</span>
-                  <span>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-foreground">
+                      {selectedMessage.name}
+                    </span>
+                    <span>&bull;</span>
+                    <span>{selectedMessage.email}</span>
+                  </div>
+                  <div className="text-xs">
                     {typeof selectedMessage.createdAt === "string"
                       ? format(
                           new Date(selectedMessage.createdAt),
                           "PPP 'at' p"
                         )
                       : ""}
-                  </span>
+                  </div>
                 </div>
               </div>
               <div className="flex gap-2">
-                <button
-                  onClick={() =>
-                    handleMarkAsRead(
-                      selectedMessage.id!,
-                      selectedMessage.status
-                    )
-                  }
-                  className={`p-2 transition-colors rounded-md ${
-                    selectedMessage.status === "new"
-                      ? "text-primary hover:bg-primary/20"
-                      : "text-muted-foreground hover:bg-muted"
-                  }`}
-                >
-                  {selectedMessage.status === "new" ? (
-                    <div className="flex items-center gap-2 px-2 text-sm font-medium">
+                <div className="relative group">
+                  <button
+                    onClick={() =>
+                      handleMarkAsRead(
+                        selectedMessage.id!,
+                        selectedMessage.status
+                      )
+                    }
+                    className={`p-2 transition-colors rounded-md ${
+                      selectedMessage.status === "new"
+                        ? "text-primary hover:bg-primary/20 bg-primary/10"
+                        : "text-muted-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {selectedMessage.status === "new" ? (
                       <MailOpen size={18} />
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 px-2 text-sm">
+                    ) : (
                       <Mail size={18} />
-                    </div>
-                  )}
-                </button>
-                <button
-                  onClick={() => handleDelete(selectedMessage.id!)}
-                  className="p-2 text-muted-foreground hover:text-red-500 transition-colors rounded-md hover:bg-red-50"
-                  title="Delete"
-                >
-                  <Trash2 size={18} />
-                </button>
+                    )}
+                  </button>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                    {selectedMessage.status === "new"
+                      ? "Mark as Read"
+                      : "Mark as Unread"}
+                  </span>
+                </div>
+
+                <div className="relative group">
+                  <button
+                    onClick={() => handleDelete(selectedMessage.id!)}
+                    className="p-2 text-muted-foreground hover:text-red-500 transition-colors rounded-md hover:bg-red-50"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                    Delete
+                  </span>
+                </div>
               </div>
             </div>
             <div className="p-6 overflow-y-auto flex-1 whitespace-pre-wrap text-sm leading-relaxed">
