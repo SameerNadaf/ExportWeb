@@ -44,7 +44,23 @@ export default function AdminLogin() {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || "Invalid email or password.");
+      let errorMessage = "Invalid email or password.";
+
+      // Map Firebase error codes to user-friendly messages
+      const code = err.code;
+      if (
+        code === "auth/invalid-credential" ||
+        code === "auth/user-not-found" ||
+        code === "auth/wrong-password"
+      ) {
+        errorMessage = "Invalid email or password.";
+      } else if (code === "auth/too-many-requests") {
+        errorMessage = "Too many failed attempts. Please try again later.";
+      } else if (code === "auth/network-request-failed") {
+        errorMessage = "Network error. Please check your connection.";
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
