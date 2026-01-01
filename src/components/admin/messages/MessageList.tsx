@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Message } from "@/types/firestore";
 import { format } from "date-fns";
 import { db } from "@/lib/firebase/client";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc, writeBatch } from "firebase/firestore";
 import { Trash2, MailOpen, Mail } from "lucide-react";
 
 interface MessageListProps {
@@ -41,20 +41,55 @@ export function MessageList({ messages }: MessageListProps) {
     }
   }
 
+  async function handleDeleteAll() {
+    if (
+      messages.length === 0 ||
+      !confirm(
+        `Are you sure you want to delete ALL ${messages.length} messages? This cannot be undone.`
+      )
+    )
+      return;
+
+    try {
+      const batch = writeBatch(db);
+      messages.forEach((msg) => {
+        if (msg.id) {
+          batch.delete(doc(db, "messages", msg.id));
+        }
+      });
+      await batch.commit();
+      setSelectedMessageId(null);
+    } catch (error) {
+      console.error("Error deleting all messages:", error);
+      alert("Failed to delete messages");
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Message List */}
       <div className="md:col-span-1 bg-card rounded-xl border border-border shadow-sm overflow-hidden flex flex-col h-[600px]">
-        <div className="p-4 border-b border-border bg-muted/30">
-          <h2 className="font-semibold text-lg">Inbox</h2>
-          <p className="text-xs text-muted-foreground">
-            {messages.length} messages
-            {messages.filter((m) => m.status === "new").length > 0 && (
-              <span className="ml-1 text-primary">
-                ({messages.filter((m) => m.status === "new").length} new)
-              </span>
-            )}
-          </p>
+        <div className="p-4 border-b border-border bg-muted/30 flex justify-between items-center">
+          <div>
+            <h2 className="font-semibold text-lg">Inbox</h2>
+            <p className="text-xs text-muted-foreground">
+              {messages.length} messages
+              {messages.filter((m) => m.status === "new").length > 0 && (
+                <span className="ml-1 text-primary">
+                  ({messages.filter((m) => m.status === "new").length} new)
+                </span>
+              )}
+            </p>
+          </div>
+          {messages.length > 0 && (
+            <button
+              onClick={handleDeleteAll}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/10 dark:text-red-400 dark:hover:bg-red-900/20 rounded-md transition-colors"
+            >
+              <Trash2 size={16} />
+              Delete All
+            </button>
+          )}
         </div>
         <div className="flex-1 overflow-y-auto">
           {messages.length === 0 ? (
@@ -171,7 +206,7 @@ export function MessageList({ messages }: MessageListProps) {
                 <div className="relative group">
                   <button
                     onClick={() => handleDelete(selectedMessage.id!)}
-                    className="p-2 text-muted-foreground hover:text-red-500 transition-colors rounded-md hover:bg-red-50"
+                    className="p-2 text-muted-foreground hover:text-red-500 transition-colors rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 dark:hover:text-red-400"
                   >
                     <Trash2 size={18} />
                   </button>
