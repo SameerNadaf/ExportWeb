@@ -158,7 +158,7 @@ export function AboutContent({ data }: AboutContentProps) {
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
             Whether you are a buyer looking for premium produce or a farmer
-            seeking a reliable partner, we welcome you to Greenary Export.
+            seeking a reliable partner, we welcome you to Anfal Global Export.
           </p>
           <Link
             href="/contact"

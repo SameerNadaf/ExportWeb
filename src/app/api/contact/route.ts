@@ -99,7 +99,7 @@ export async function POST(request: Request) {
     const contactDoc = await adminDb.collection("content").doc("contact").get();
     const adminEmail = contactDoc.exists
       ? contactDoc.data()?.value?.email
-      : process.env.ADMIN_EMAIL || "info@greenaryexport.com";
+      : process.env.ADMIN_EMAIL || "info@anfalglobalexport.in";
 
     // 6. Send Email via Nodemailer (if configured)
     const smtpHost = process.env.SMTP_HOST;

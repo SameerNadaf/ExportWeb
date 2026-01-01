@@ -113,10 +113,12 @@ export async function Footer() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
                   <a
-                    href={`mailto:${data?.email || "info@greenaryexport.com"}`}
+                    href={`mailto:${
+                      data?.email || "info@anfalglobalexport.in"
+                    }`}
                     className="hover:text-primary"
                   >
-                    {data?.email || "info@greenaryexport.com"}
+                    {data?.email || "info@anfalglobalexport.in"}
                   </a>
                 </li>
                 <li>

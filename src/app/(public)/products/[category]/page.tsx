@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title: `${
       category.charAt(0).toUpperCase() + category.slice(1)
-    } | Greenary Export`,
+    } | Anfal Global Export`,
     description: `Premium ${category} available for export.`,
   };
 }
