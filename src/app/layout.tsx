@@ -15,6 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  manifest: "/site.webmanifest",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://anfalglobalexport.in"
   ),
@@ -60,9 +61,6 @@ export const metadata: Metadata = {
     description:
       "Exporting premium organic Indian spices, fresh fruits, and vegetables worldwide.",
     images: ["/og-image.jpg"],
-  },
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
