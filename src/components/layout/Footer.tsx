@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { adminDb } from "@/lib/firebase/admin";
 import { FooterAnimator } from "./FooterAnimator";
 
