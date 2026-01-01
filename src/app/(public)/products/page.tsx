@@ -4,7 +4,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { Product, Category } from "@/types/firestore";
 
 export const metadata = {
-  title: "Our Products | Anfal Global Export",
+  title: "Our Products",
   description:
     "Explore our range of premium organic spices, fruits, and vegetables.",
 };
