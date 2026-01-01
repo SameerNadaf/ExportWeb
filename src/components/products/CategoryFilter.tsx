@@ -43,7 +43,7 @@ export function CategoryFilter({
       variants={container}
       initial="hidden"
       animate="show"
-      className="flex flex-wrap items-center gap-2 mb-8"
+      className="flex flex-wrap items-center gap-3 mb-8"
     >
       {filterItems.map((cat) => {
         const isActive = currentCategory === cat.value;
@@ -51,7 +51,7 @@ export function CategoryFilter({
           <motion.div key={cat.label} variants={item}>
             <Link
               href={cat.href}
-              className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`relative inline-block px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 isActive
                   ? "text-primary-foreground"
                   : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-primary"
