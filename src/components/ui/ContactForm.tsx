@@ -16,10 +16,33 @@ export function ContactForm({ className }: ContactFormProps) {
     e.preventDefault();
     setStatus("submitting");
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
 
-    setStatus("success");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setStatus("success");
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setStatus("idle"); // or handle error state
+      alert("Failed to send message. Please try again.");
+    }
   }
 
   if (status === "success") {

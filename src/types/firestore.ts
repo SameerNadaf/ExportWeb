@@ -36,3 +36,13 @@ export interface SiteContent {
   key: string;
   value: ContentData;
 }
+
+export interface Message {
+  id?: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  status: "new" | "read";
+  createdAt: Timestamp | string;
+}
