@@ -188,14 +188,14 @@ export function MessageList({ messages }: MessageListProps) {
                     }
                     className={`p-2 transition-colors rounded-md ${
                       selectedMessage.status === "new"
-                        ? "text-primary hover:bg-primary/20 bg-primary/10"
+                        ? "text-primary hover:bg-muted"
                         : "text-muted-foreground hover:bg-muted"
                     }`}
                   >
                     {selectedMessage.status === "new" ? (
-                      <MailOpen size={18} />
-                    ) : (
                       <Mail size={18} />
+                    ) : (
+                      <MailOpen size={18} />
                     )}
                   </button>
                   <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
