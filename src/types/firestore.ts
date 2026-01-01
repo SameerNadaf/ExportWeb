@@ -41,6 +41,7 @@ export interface Message {
   id?: string;
   name: string;
   email: string;
+  mobile?: string;
   subject: string;
   message: string;
   status: "new" | "read";

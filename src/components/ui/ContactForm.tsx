@@ -20,6 +20,7 @@ export function ContactForm({ className }: ContactFormProps) {
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
+      mobile: formData.get("mobile"),
       subject: formData.get("subject"),
       message: formData.get("message"),
       website: formData.get("website"), // Honeypot
@@ -104,7 +105,7 @@ export function ContactForm({ className }: ContactFormProps) {
         </div>
         <div className="space-y-2">
           <label htmlFor="email" className="text-sm font-medium">
-            Business Email
+            Email
           </label>
           <input
             id="email"
@@ -112,25 +113,37 @@ export function ContactForm({ className }: ContactFormProps) {
             type="email"
             required
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            placeholder="john@company.com"
+            placeholder="john@gmail.com"
           />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="subject" className="text-sm font-medium">
-          Subject
-        </label>
-        <select
-          id="subject"
-          name="subject"
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <option>Bulk Order Inquiry</option>
-          <option>Product Specification Request</option>
-          <option>Partnership Opportunity</option>
-          <option>Other</option>
-        </select>
+        <div className="space-y-2">
+          <label htmlFor="mobile" className="text-sm font-medium">
+            Mobile Number
+          </label>
+          <input
+            id="mobile"
+            name="mobile"
+            type="tel"
+            required
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder="+1 (555) 000-0000"
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="subject" className="text-sm font-medium">
+            Subject
+          </label>
+          <select
+            id="subject"
+            name="subject"
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option>Bulk Order Inquiry</option>
+            <option>Product Specification Request</option>
+            <option>Partnership Opportunity</option>
+            <option>Other</option>
+          </select>
+        </div>
       </div>
 
       <div className="space-y-2">

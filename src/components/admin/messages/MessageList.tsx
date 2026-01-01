@@ -164,6 +164,8 @@ export function MessageList({ messages }: MessageListProps) {
                     </span>
                     <span>&bull;</span>
                     <span>{selectedMessage.email}</span>
+                    <span>&bull;</span>
+                    <span>{selectedMessage.mobile || "N/A"}</span>
                   </div>
                   <div className="text-xs">
                     {typeof selectedMessage.createdAt === "string"
