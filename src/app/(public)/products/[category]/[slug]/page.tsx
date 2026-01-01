@@ -3,6 +3,7 @@ import { ProductInfo } from "@/components/products/ProductInfo";
 import { notFound } from "next/navigation";
 import { adminDb } from "@/lib/firebase/admin";
 import { Product } from "@/types/firestore";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const revalidate = 60; // ISR
 
@@ -36,8 +37,13 @@ export async function generateMetadata({
   if (!product) return { title: "Product Not Found" };
 
   return {
-    title: `${product.name} | Greenary Export`,
+    title: product.name,
     description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: product.images.map((img: { url: string }) => img.url),
+    },
   };
 }
 
@@ -73,6 +79,24 @@ export default async function ProductDetailPage({
   return (
     <div className="container mx-auto px-4 py-8 md:py-12 lg:py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            image: product.images?.map((img: any) => img.url),
+            description: product.description,
+            brand: {
+              "@type": "Brand",
+              name: "Anfal Global Export",
+            },
+            offers: {
+              "@type": "Offer",
+              url: `https://anfalglobalexport.in/products/${product.categorySlug}/${product.slug}`,
+              availability: "https://schema.org/InStock",
+            },
+          }}
+        />
         <div className="lg:sticky lg:top-24 lg:self-start">
           <ProductGallery images={product.images || []} name={product.name} />
         </div>
