@@ -4,8 +4,19 @@ import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json();
+    const { name, email, subject, message, website } = await request.json();
 
+    // 1. Honeypot Check (Spam Bot Protection)
+    if (website) {
+      console.warn("Spam bot detected (Honeypot filled)");
+      // Return fake success to fool the bot
+      return NextResponse.json(
+        { message: "Message sent successfully" },
+        { status: 200 }
+      );
+    }
+
+    // 2. Early Validation
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -13,9 +24,65 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+
+    // 3. Rate Limiting (5 requests per hour per IP)
+    const ip =
+      request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown-ip";
+
+    // Create a simple hash of the IP for privacy (optional but good practice)
+    // For simplicity here, we'll just sanitize the IP string for document ID
+    const sanitizedIp = ip.replace(/[^a-zA-Z0-9]/g, "_");
+    const limitRef = adminDb.collection("rate_limits").doc(sanitizedIp);
+    const limitDoc = await limitRef.get();
+
+    const now = Date.now();
+    const windowMs = 60 * 60 * 1000; // 1 hour
+
+    if (limitDoc.exists) {
+      const data = limitDoc.data();
+      const lastAttempt = data?.lastAttempt || 0;
+      const count = data?.count || 0;
+
+      if (now - lastAttempt < windowMs) {
+        if (count >= 5) {
+          console.warn(`Rate limit exceeded for IP: ${ip}`);
+          return NextResponse.json(
+            { error: "Too many requests. Please try again later." },
+            { status: 429 }
+          );
+        }
+        await limitRef.update({
+          count: count + 1,
+          lastAttempt: now,
+        });
+      } else {
+        // Reset window
+        await limitRef.set({
+          count: 1,
+          lastAttempt: now,
+        });
+      }
+    } else {
+      await limitRef.set({
+        count: 1,
+        lastAttempt: now,
+      });
+    }
+
+    // --- Proceed with Message Handling ---
+
     const timestamp = new Date();
 
-    // 1. Save to Firestore
+    // 4. Save to Firestore
     await adminDb.collection("messages").add({
       name,
       email,
@@ -23,15 +90,16 @@ export async function POST(request: Request) {
       message,
       status: "new",
       createdAt: timestamp,
+      ip: ip, // Store IP for internal tracking/blocking if needed
     });
 
-    // 2. Fetch Admin Email
+    // 5. Fetch Admin Email
     const contactDoc = await adminDb.collection("content").doc("contact").get();
     const adminEmail = contactDoc.exists
       ? contactDoc.data()?.value?.email
       : process.env.ADMIN_EMAIL || "info@greenaryexport.com";
 
-    // 3. Send Email via Nodemailer (if configured)
+    // 6. Send Email via Nodemailer (if configured)
     const smtpHost = process.env.SMTP_HOST;
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
@@ -40,7 +108,7 @@ export async function POST(request: Request) {
       const transporter = nodemailer.createTransport({
         host: smtpHost,
         port: Number(process.env.SMTP_PORT) || 587,
-        secure: Boolean(process.env.SMTP_SECURE) || false, // true for 465, false for other ports
+        secure: Boolean(process.env.SMTP_SECURE) || false,
         auth: {
           user: smtpUser,
           pass: smtpPass,
@@ -48,9 +116,9 @@ export async function POST(request: Request) {
       });
 
       await transporter.sendMail({
-        from: `"${name}" <${process.env.SMTP_FROM_EMAIL || smtpUser}>`, // sender address
-        to: adminEmail, // list of receivers
-        subject: `New Inquiry: ${subject}`, // Subject line
+        from: `"${name}" <${process.env.SMTP_FROM_EMAIL || smtpUser}>`,
+        to: adminEmail,
+        subject: `New Inquiry: ${subject}`,
         text: `
 Name: ${name}
 Email: ${email}
@@ -58,7 +126,7 @@ Subject: ${subject}
 
 Message:
 ${message}
-        `, // plain text body
+        `,
         html: `
 <h3>New Inquiry Received</h3>
 <p><strong>Name:</strong> ${name}</p>
@@ -67,7 +135,7 @@ ${message}
 <br/>
 <p><strong>Message:</strong></p>
 <p>${message.replace(/\n/g, "<br>")}</p>
-        `, // html body
+        `,
       });
 
       console.log("Email sent successfully to", adminEmail);
