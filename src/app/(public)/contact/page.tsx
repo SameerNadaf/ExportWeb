@@ -2,7 +2,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { ContactContent } from "@/components/contact/ContactContent";
 
 export const metadata = {
-  title: "Contact Us | Greenary Export",
+  title: "Contact Us | Anfal Global Export",
   description: "Get in touch for export inquiries and support.",
 };
 
