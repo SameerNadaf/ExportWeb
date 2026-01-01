@@ -18,8 +18,7 @@ export async function Footer() {
                 <span className="text-accent">GlobalExport</span>
               </span>
               <p className="text-sm text-muted-foreground">
-                Premium quality organic spices, fruits, and vegetables exported
-                directly from the finest farms.
+                Premium-quality organic spices, fruits, and vegetables sourced from certified farms and exported at peak freshness.
               </p>
             </div>
 
