@@ -4,7 +4,8 @@ import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message, website } = await request.json();
+    const { name, email, mobile, subject, message, website } =
+      await request.json();
 
     // 1. Honeypot Check (Spam Bot Protection)
     if (website) {
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
     }
 
     // 2. Early Validation
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !mobile || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -86,6 +87,7 @@ export async function POST(request: Request) {
     await adminDb.collection("messages").add({
       name,
       email,
+      mobile,
       subject,
       message,
       status: "new",
@@ -122,6 +124,7 @@ export async function POST(request: Request) {
         text: `
 Name: ${name}
 Email: ${email}
+Mobile: ${mobile}
 Subject: ${subject}
 
 Message:
@@ -131,6 +134,7 @@ ${message}
 <h3>New Inquiry Received</h3>
 <p><strong>Name:</strong> ${name}</p>
 <p><strong>Email:</strong> ${email}</p>
+<p><strong>Mobile:</strong> ${mobile}</p>
 <p><strong>Subject:</strong> ${subject}</p>
 <br/>
 <p><strong>Message:</strong></p>
