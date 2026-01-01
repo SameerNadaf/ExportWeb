@@ -12,7 +12,12 @@ interface MessageListProps {
 }
 
 export function MessageList({ messages }: MessageListProps) {
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [selectedMessageId, setSelectedMessageId] = useState<string | null>(
+    null
+  );
+
+  // Derive the selected message from the props to ensure real-time updates
+  const selectedMessage = messages.find((m) => m.id === selectedMessageId);
 
   async function handleMarkAsRead(id: string, currentStatus: string) {
     if (!id) return;
@@ -28,8 +33,8 @@ export function MessageList({ messages }: MessageListProps) {
     if (!id || !confirm("Are you sure you want to delete this message?"))
       return;
     try {
+      if (selectedMessageId === id) setSelectedMessageId(null);
       await deleteDoc(doc(db, "messages", id));
-      if (selectedMessage?.id === id) setSelectedMessage(null);
     } catch (error) {
       console.error("Error deleting message:", error);
       alert("Failed to delete message");
@@ -44,6 +49,11 @@ export function MessageList({ messages }: MessageListProps) {
           <h2 className="font-semibold text-lg">Inbox</h2>
           <p className="text-xs text-muted-foreground">
             {messages.length} messages
+            {messages.filter((m) => m.status === "new").length > 0 && (
+              <span className="ml-1 text-primary">
+                ({messages.filter((m) => m.status === "new").length} new)
+              </span>
+            )}
           </p>
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -56,26 +66,35 @@ export function MessageList({ messages }: MessageListProps) {
               {messages.map((msg) => (
                 <li
                   key={msg.id}
-                  onClick={() => setSelectedMessage(msg)}
-                  className={`p-4 cursor-pointer transition-colors hover:bg-muted/50 ${
-                    selectedMessage?.id === msg.id
+                  onClick={() => setSelectedMessageId(msg.id!)}
+                  className={`p-4 cursor-pointer transition-all hover:bg-muted/50 ${
+                    selectedMessageId === msg.id
                       ? "bg-muted/50 border-l-4 border-primary"
                       : msg.status === "new"
-                      ? "bg-primary/5"
-                      : ""
+                      ? "bg-primary/5 border-l-4 border-transparent"
+                      : "border-l-4 border-transparent"
                   }`}
                 >
                   <div className="flex justify-between items-start mb-1">
-                    <span
-                      className={`text-sm font-medium ${
-                        msg.status === "new"
-                          ? "text-primary"
-                          : "text-foreground"
-                      }`}
-                    >
-                      {msg.name}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      {/* UNREAD INDICATOR */}
+                      {msg.status === "new" && (
+                        <span
+                          className="w-2 h-2 rounded-full bg-primary inline-block flex-shrink-0"
+                          title="Unread"
+                        ></span>
+                      )}
+                      <span
+                        className={`text-sm font-medium ${
+                          msg.status === "new"
+                            ? "text-primary font-bold"
+                            : "text-foreground"
+                        }`}
+                      >
+                        {msg.name}
+                      </span>
+                    </div>
+                    <span className="text-xs text-muted-foreground flex-shrink-0">
                       {typeof msg.createdAt === "string"
                         ? format(new Date(msg.createdAt), "MMM d")
                         : "Now"}
@@ -128,17 +147,20 @@ export function MessageList({ messages }: MessageListProps) {
                       selectedMessage.status
                     )
                   }
-                  className="p-2 text-muted-foreground hover:text-primary transition-colors rounded-md hover:bg-muted"
-                  title={
+                  className={`p-2 transition-colors rounded-md ${
                     selectedMessage.status === "new"
-                      ? "Mark as Read"
-                      : "Mark as Unread"
-                  }
+                      ? "text-primary hover:bg-primary/20"
+                      : "text-muted-foreground hover:bg-muted"
+                  }`}
                 >
                   {selectedMessage.status === "new" ? (
-                    <MailOpen size={18} />
+                    <div className="flex items-center gap-2 px-2 text-sm font-medium">
+                      <MailOpen size={18} />
+                    </div>
                   ) : (
-                    <Mail size={18} />
+                    <div className="flex items-center gap-2 px-2 text-sm">
+                      <Mail size={18} />
+                    </div>
                   )}
                 </button>
                 <button
