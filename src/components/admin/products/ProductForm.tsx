@@ -26,6 +26,8 @@ export function ProductForm({
     initialData?.categorySlug || categories[0]?.slug || "spices"
   );
   const [origin, setOrigin] = useState(initialData?.origin || "");
+  const [variety, setVariety] = useState(initialData?.variety || "");
+  const [shelfLife, setShelfLife] = useState(initialData?.shelfLife || "");
   const [description, setDescription] = useState(
     initialData?.description || ""
   );
@@ -76,6 +78,8 @@ export function ProductForm({
       slug,
       categorySlug: category, // Mapping back to DB field name
       origin,
+      variety,
+      shelfLife,
       description,
       images,
       isActive,
@@ -176,6 +180,34 @@ export function ProductForm({
                 onChange={(e) => setOrigin(e.target.value)}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 placeholder="e.g. Kerala, India"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label htmlFor="variety" className="text-sm font-medium">
+                Variety / Type
+              </label>
+              <input
+                id="variety"
+                value={variety}
+                onChange={(e) => setVariety(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                placeholder="e.g. Malabar Black"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="shelfLife" className="text-sm font-medium">
+                Shelf Life
+              </label>
+              <input
+                id="shelfLife"
+                value={shelfLife}
+                onChange={(e) => setShelfLife(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                placeholder="e.g. 12 Months"
               />
             </div>
           </div>

@@ -13,6 +13,8 @@ export interface Product {
   description: string;
   images: ProductImage[];
   origin: string;
+  variety?: string;
+  shelfLife?: string;
   certifications: string[]; // e.g., ["USDA Organic", "ISO 9001"]
   isActive: boolean;
   createdAt: Timestamp | string;

@@ -49,8 +49,16 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-y border-border">
         <div>
+          <h3 className="font-semibold text-foreground mb-1">Variety</h3>
+          <p className="text-muted-foreground">{product.variety || "N/A"}</p>
+        </div>
+        <div>
           <h3 className="font-semibold text-foreground mb-1">Origin</h3>
           <p className="text-muted-foreground">{product.origin}</p>
+        </div>
+        <div>
+          <h3 className="font-semibold text-foreground mb-1">Shelf Life</h3>
+          <p className="text-muted-foreground">{product.shelfLife || "N/A"}</p>
         </div>
         <div>
           <h3 className="font-semibold text-foreground mb-1">Packaging</h3>
