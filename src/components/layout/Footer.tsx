@@ -13,13 +13,10 @@ export async function Footer() {
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             <div className="space-y-4">
-              <Image
-                src="/assets/logos/large_logo.png"
-                alt="Anfal Global Export"
-                width={200}
-                height={60}
-                className="h-20 w-auto object-contain"
-              />
+              <span className="text-xl font-heading text-primary tracking-tight">
+                <span className="font-bold">Anfal</span>
+                <span className="text-accent">GlobalExport</span>
+              </span>
               <p className="text-sm text-muted-foreground">
                 Premium quality organic spices, fruits, and vegetables exported
                 directly from the finest farms.
