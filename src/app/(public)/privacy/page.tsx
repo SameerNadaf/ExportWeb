@@ -16,7 +16,7 @@ export default async function PrivacyPolicyPage() {
         Privacy Policy
       </h1>
       <div className="prose prose-green max-w-none text-muted-foreground">
-        <p className="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
+        <p className="mb-4">Last Updated: January 5, 2026</p>
 
         <p className="mb-6">
           At Anfal Global Export, we are committed to protecting your privacy
@@ -75,7 +75,40 @@ export default async function PrivacyPolicyPage() {
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
-          5. Contact Us
+          5. Cookies and Tracking Technologies
+        </h2>
+        <p className="mb-6">
+          We use cookies and similar tracking technologies to track the activity
+          on our service and hold certain information. You can instruct your
+          browser to refuse all cookies or to indicate when a cookie is being
+          sent.
+        </p>
+
+        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+          6. International Data Transfer
+        </h2>
+        <p className="mb-6">
+          Your information, including Personal Data, may be transferred to — and
+          maintained on — computers located outside of your state, province,
+          country, or other governmental jurisdiction where the data protection
+          laws may differ from those from your jurisdiction. As an expor
+          business headquartered in India, we may process data in India and
+          other countries where we operate.
+        </p>
+
+        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+          7. Your Data Protection Rights (GDPR)
+        </h2>
+        <p className="mb-6">
+          We would like to make sure you are fully aware of all of your data
+          protection rights. Every user is entitled to the following: The right
+          to access, the right to rectification, the right to erasure, the right
+          to restrict processing, the right to object to processing, and the
+          right to data portability.
+        </p>
+
+        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+          8. Contact Us
         </h2>
         <p className="mb-4">
           If you have any questions about this Privacy Policy, please contact us

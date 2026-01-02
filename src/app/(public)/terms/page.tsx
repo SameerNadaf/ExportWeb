@@ -16,7 +16,7 @@ export default async function TermsPage() {
         Terms of Use
       </h1>
       <div className="prose prose-green max-w-none text-muted-foreground">
-        <p className="mb-4">Last Updated: {new Date().toLocaleDateString()}</p>
+        <p className="mb-4">Last Updated: January 5, 2026</p>
 
         <p className="mb-6">
           Welcome to Anfal Global Export. By accessing and using this website,
@@ -50,12 +50,25 @@ export default async function TermsPage() {
         <p className="mb-6">
           We strive to ensure that all product descriptions, specifications, and
           images are accurate. However, we do not warrant that the product
-          descriptions or other content of this site is accurate, complete,
-          reliable, current, or error-free.
+          descriptions, images (which are for illustrative purposes only), or
+          other content of this site is accurate, complete, reliable, current,
+          or error-free. Natural products may vary in color, texture, and size.
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
-          4. Limitation of Liability
+          4. Commercial Terms
+        </h2>
+        <p className="mb-6">
+          These Terms of Use govern the use of this website only. The actual
+          sale of goods, pricing, shipping, and liability for products exported
+          by Anfal Global Export are governed exclusively by separate Sales
+          Contracts, Proforma Invoices, and Purchase Orders agreed upon between
+          the buyer and seller. Nothing on this website constitutes a binding
+          legal offer to sell.
+        </p>
+
+        <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
+          5. Limitation of Liability
         </h2>
         <p className="mb-6">
           In no event shall Anfal Global Export, nor any of its officers,
@@ -65,7 +78,7 @@ export default async function TermsPage() {
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
-          5. Governing Law
+          6. Governing Law
         </h2>
         <p className="mb-6">
           These terms and conditions are governed by and construed in accordance
@@ -74,7 +87,7 @@ export default async function TermsPage() {
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
-          6. Changes to Terms
+          7. Changes to Terms
         </h2>
         <p className="mb-6">
           We reserve the right to revise these terms and conditions at any time.
@@ -83,7 +96,7 @@ export default async function TermsPage() {
         </p>
 
         <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">
-          7. Contact Information
+          8. Contact Information
         </h2>
         <p className="mb-4">
           If you have any questions about these Terms, please contact us at:
