@@ -199,21 +199,26 @@ export function CertificateManager({
         {certificates.map((cert) => (
           <div
             key={cert.id}
-            className="bg-card rounded-lg border border-border overflow-hidden group"
+            className="bg-card rounded-lg border border-border p-4 flex flex-col items-center hover:shadow-md transition-shadow"
           >
-            <div className="relative aspect-[4/3] bg-muted">
+            <div className="relative w-full h-48 mb-4 flex items-center justify-center">
               <Image
                 src={cert.imageUrl}
                 alt={cert.title}
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
-            <div className="p-4 flex items-center justify-between">
-              <h3 className="font-medium truncate">{cert.title}</h3>
+            <div className="w-full flex items-center justify-between pt-4 border-t border-border">
+              <h3
+                className="font-medium truncate flex-1 mr-2"
+                title={cert.title}
+              >
+                {cert.title}
+              </h3>
               <button
                 onClick={() => cert.id && handleDelete(cert.id)}
-                className="text-destructive hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-colors"
+                className="text-muted-foreground hover:text-red-600 dark:hover:text-red-400 p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                 title="Delete"
               >
                 <Trash2 className="h-4 w-4" />
