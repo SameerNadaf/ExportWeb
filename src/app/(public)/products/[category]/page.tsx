@@ -20,9 +20,7 @@ export async function generateMetadata({
 }) {
   const { category } = await params;
   return {
-    title: `${
-      category.charAt(0).toUpperCase() + category.slice(1)
-    } | Greenary Export`,
+    title: `${category.charAt(0).toUpperCase() + category.slice(1)}`,
     description: `Premium ${category} available for export.`,
   };
 }

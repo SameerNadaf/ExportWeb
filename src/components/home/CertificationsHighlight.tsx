@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
+import { Certificate } from "@/types/firestore";
 
-export function CertificationsHighlight() {
+interface CertificationsHighlightProps {
+  certificates: Certificate[];
+}
+
+export function CertificationsHighlight({
+  certificates,
+}: CertificationsHighlightProps) {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -23,14 +30,6 @@ export function CertificationsHighlight() {
     },
   };
 
-  const certifications = [
-    "ISO 9001",
-    "USDA Organic",
-    "Global GAP",
-    "Fair Trade",
-    "HACCP",
-  ];
-
   return (
     <section className="py-20 bg-background border-t border-border">
       <div className="container mx-auto px-4 text-center">
@@ -44,24 +43,28 @@ export function CertificationsHighlight() {
           Certified Excellence
         </motion.h2>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          className="flex flex-wrap justify-center items-center gap-8 md:gap-16"
-        >
-          {certifications.map((cert, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, filter: "grayscale(0%)" }}
-              className="h-20 w-36 bg-muted/50 rounded-xl flex items-center justify-center text-sm font-bold text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:shadow-sm transition-all duration-300 cursor-default opacity-70 grayscale hover:opacity-100"
-            >
-              {cert}
-            </motion.div>
-          ))}
-        </motion.div>
+        {certificates.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            className="flex flex-wrap justify-center items-center gap-4 md:gap-6"
+          >
+            {certificates.map((cert) => (
+              <motion.div
+                key={cert.id}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05 }}
+                className="h-20 w-36 bg-muted/50 rounded-xl flex items-center justify-center text-sm font-bold text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:shadow-sm transition-all duration-300 cursor-default"
+              >
+                {cert.title}
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <p className="text-muted-foreground">Certified quality guaranteed.</p>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}

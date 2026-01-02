@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     const decodedToken = await adminAuth.verifyIdToken(idToken);
 
     // Guard: Only allow admin email (Optional but extra safe)
-    // if (decodedToken.email !== 'admin@greenary.com') { ... }
+    // if (decodedToken.email !== 'admin@anfalglobalexport.in') { ... }
 
     // Create session cookie
     const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days

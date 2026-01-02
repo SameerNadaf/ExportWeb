@@ -2,41 +2,16 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Certificate } from "@/types/firestore";
+import Image from "next/image";
 
-export function CertificationsContent() {
-  const certs = [
-    {
-      name: "ISO 9001:2015",
-      desc: "Certified Quality Management System ensuring consistent product quality and customer satisfaction.",
-      color: "bg-blue-50 border-blue-100 text-blue-900",
-    },
-    {
-      name: "USDA Organic",
-      desc: "Adherence to strict federal standards for organic farming, free from synthetic pesticides and fertilizers.",
-      color: "bg-green-50 border-green-100 text-green-900",
-    },
-    {
-      name: "Global G.A.P",
-      desc: "Good Agricultural Practice certification ensuring safe and sustainable agriculture worldwide.",
-      color: "bg-sky-50 border-sky-100 text-sky-900",
-    },
-    {
-      name: "HACCP",
-      desc: "Hazard Analysis Critical Control Point system for managing food safety risks.",
-      color: "bg-orange-50 border-orange-100 text-orange-900",
-    },
-    {
-      name: "Fair Trade",
-      desc: "Commitment to fair pricing and better working conditions for farmers and workers.",
-      color: "bg-emerald-50 border-emerald-100 text-emerald-900",
-    },
-    {
-      name: "FSSAI License",
-      desc: "Licensed by the Food Safety and Standards Authority of India.",
-      color: "bg-purple-50 border-purple-100 text-purple-900",
-    },
-  ];
+interface CertificationsContentProps {
+  certificates: Certificate[];
+}
 
+export function CertificationsContent({
+  certificates,
+}: CertificationsContentProps) {
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -76,27 +51,41 @@ export function CertificationsContent() {
         </p>
       </motion.div>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        {certs.map((cert) => (
-          <motion.div
-            key={cert.name}
-            variants={item}
-            transition={{ type: "spring", bounce: 0.4 }}
-            className={`p-8 rounded-xl border ${cert.color} transition-all hover:shadow-xl hover:-translate-y-1 duration-300 transform-gpu cursor-default`}
-          >
-            <div className="h-12 w-12 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-xl font-bold">
-              {cert.name.charAt(0)}
-            </div>
-            <h3 className="text-xl font-bold mb-3">{cert.name}</h3>
-            <p className="text-sm opacity-80 leading-relaxed">{cert.desc}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+      {certificates.length > 0 ? (
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {certificates.map((cert) => (
+            <motion.div
+              key={cert.id}
+              variants={item}
+              transition={{ type: "spring", bounce: 0.4 }}
+              className="p-4 rounded-xl border border-border bg-card transition-all hover:shadow-xl hover:-translate-y-1 duration-300 transform-gpu group"
+            >
+              <div className="relative aspect-[4/3] w-full bg-muted rounded-lg overflow-hidden mb-4">
+                <Image
+                  src={cert.imageUrl}
+                  alt={cert.title}
+                  fill
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-center text-foreground">
+                {cert.title}
+              </h3>
+            </motion.div>
+          ))}
+        </motion.div>
+      ) : (
+        <div className="text-center py-12 text-muted-foreground">
+          <p>
+            Certifications are currently being updated. Please check back soon.
+          </p>
+        </div>
+      )}
 
       <motion.div
         initial="hidden"

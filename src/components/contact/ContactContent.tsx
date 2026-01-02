@@ -65,10 +65,10 @@ export function ContactContent({ data }: ContactContentProps) {
               <li className="flex items-center gap-2">
                 <span className="font-semibold text-foreground">Email:</span>{" "}
                 <a
-                  href={`mailto:${data?.email || "export@greenary.com"}`}
+                  href={`mailto:${data?.email || "info@anfalglobalexport.in"}`}
                   className="hover:text-primary transition-colors"
                 >
-                  {data?.email || "export@greenary.com"}
+                  {data?.email || "info@anfalglobalexport.in"}
                 </a>
               </li>
             </ul>

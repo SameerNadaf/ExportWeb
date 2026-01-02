@@ -2,7 +2,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { AboutContent } from "@/components/about/AboutContent";
 
 export const metadata = {
-  title: "About Us | Greenary Export",
+  title: "About Us",
   description:
     "Our heritage, mission, and commitment to sustainable organic export.",
 };

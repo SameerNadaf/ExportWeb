@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { QuoteDialog } from "@/components/ui/QuoteDialog";
 import { motion } from "framer-motion";
@@ -23,14 +21,10 @@ export function Header() {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Image
-                src="/assets/logos/header_logo.png"
-                alt="Anfal Global Export"
-                width={180}
-                height={40}
-                className="h-9 w-auto object-contain"
-                priority
-              />
+              <span className="text-xl font-heading text-primary tracking-tight">
+                <span className="font-bold">Anfal</span>
+                <span className="text-accent">GlobalExport</span>
+              </span>
             </motion.div>
           </Link>
 

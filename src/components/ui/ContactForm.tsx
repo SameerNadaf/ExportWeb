@@ -36,14 +36,15 @@ export function ContactForm({ className }: ContactFormProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to send message");
       }
 
       setStatus("success");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending message:", error);
-      setStatus("idle"); // or handle error state
-      alert("Failed to send message. Please try again.");
+      setStatus("idle");
+      alert(error.message || "Failed to send message. Please try again.");
     }
   }
 
