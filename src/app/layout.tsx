@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Anfal Global Export",
   },
   description:
-    "Exporting premium organic Indian spices, fresh fruits, and vegetables worldwide. Trusted exporter of high-quality agricultural products.",
+    "Leading exporter of premium organic Indian spices, fresh fruits, and vegetables. We deliver high-quality, sustainable agricultural products to global markets.",
   keywords: [
     "spices exporter",
     "indian spices",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "Anfal Global Export",
     title: "Anfal Global Export | Premium Spices, Fruits & Vegetables",
     description:
-      "Exporting premium organic Indian spices, fresh fruits, and vegetables worldwide.",
+      "Leading exporter of premium organic Indian spices, fresh fruits, and vegetables. We deliver high-quality, sustainable agricultural products to global markets.",
     images: [
       {
         url: "/og-image.jpg",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Anfal Global Export",
     description:
-      "Exporting premium organic Indian spices, fresh fruits, and vegetables worldwide.",
+      "Leading exporter of premium organic Indian spices, fresh fruits, and vegetables. We deliver high-quality, sustainable agricultural products to global markets.",
     images: ["/og-image.jpg"],
   },
 };
