@@ -6,9 +6,36 @@ import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CertificationsHighlight } from "@/components/home/CertificationsHighlight";
 import { HomeCTA } from "@/components/home/HomeCTA";
 
+import { adminDb } from "@/lib/firebase/admin";
+import { Certificate } from "@/types/firestore";
+
 export const revalidate = 60; // ISR: 1 minute
 
 export default async function Home() {
+  let certificates: Certificate[] = [];
+
+  try {
+    const snapshot = await adminDb
+      .collection("certificates")
+      .orderBy("createdAt", "desc")
+      .limit(6)
+      .get();
+
+    certificates = snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt:
+          data.createdAt && typeof data.createdAt.toDate === "function"
+            ? data.createdAt.toDate().toISOString()
+            : new Date().toISOString(),
+      };
+    }) as Certificate[];
+  } catch (error) {
+    console.error("Error fetching certificates for home:", error);
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
@@ -16,7 +43,7 @@ export default async function Home() {
       <ExportMessaging />
       <CategoryPreview />
       <WhyChooseUs />
-      <CertificationsHighlight />
+      <CertificationsHighlight certificates={certificates} />
       <HomeCTA />
     </div>
   );

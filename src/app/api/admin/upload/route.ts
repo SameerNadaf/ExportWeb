@@ -19,12 +19,14 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
+    const folder = (formData.get("folder") as string) || "export-web/products";
+
     // Upload to Cloudinary using stream
     const result = await new Promise<any>((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
-            folder: "export-web/products",
+            folder,
           },
           (error, result) => {
             if (error) reject(error);

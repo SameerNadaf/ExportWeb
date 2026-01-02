@@ -49,3 +49,11 @@ export interface Message {
   status: "new" | "read";
   createdAt: Timestamp | string;
 }
+
+export interface Certificate {
+  id?: string;
+  title: string;
+  imageUrl: string;
+  publicId: string;
+  createdAt: Timestamp | string;
+}
