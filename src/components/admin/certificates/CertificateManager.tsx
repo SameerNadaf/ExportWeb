@@ -126,18 +126,57 @@ export function CertificateManager({
             <label className="block text-sm font-medium mb-1">
               Certificate Image
             </label>
-            <input
-              id="cert-file"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full"
-              required
-            />
+            {imageFile ? (
+              <div className="relative inline-block group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={URL.createObjectURL(imageFile)}
+                  alt="Certificate Preview"
+                  className="h-48 w-auto object-contain rounded-lg border border-border"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setImageFile(null);
+                    const fileInput = document.getElementById(
+                      "cert-file"
+                    ) as HTMLInputElement;
+                    if (fileInput) fileInput.value = "";
+                  }}
+                  className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-red-600"
+                  title="Remove image"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <label
+                htmlFor="cert-file"
+                className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/50 hover:bg-muted transition-colors border-border hover:border-primary ${
+                  isUploading ? "opacity-50 pointer-events-none" : ""
+                }`}
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+                  <p className="mb-1 text-sm text-muted-foreground">
+                    <span className="font-semibold">Click to upload</span> or
+                    drag and drop
+                  </p>
+                </div>
+                <input
+                  id="cert-file"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  required={!imageFile}
+                />
+              </label>
+            )}
           </div>
           <button
             type="submit"
-            disabled={isUploading || !imageFile || !title}
+            disabled={isUploading}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:opacity-50"
           >
             {isUploading ? (
