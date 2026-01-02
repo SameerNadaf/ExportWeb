@@ -142,6 +142,7 @@ export function ContactForm({ className }: ContactFormProps) {
             <option>Bulk Order Inquiry</option>
             <option>Product Specification Request</option>
             <option>Partnership Opportunity</option>
+            <option>Request Certificates</option>
             <option>Other</option>
           </select>
         </div>
