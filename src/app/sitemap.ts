@@ -4,8 +4,7 @@ import { adminDb } from "@/lib/firebase/admin";
 export const revalidate = 3600; // Cache sitemap for 1 hour to save database reads
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://anfalglobalexport.in";
+  const baseUrl = "https://anfalglobalexport.in";
 
   // Static routes
   const routes = ["", "/about", "/contact", "/certifications"].map((route) => ({

@@ -16,7 +16,7 @@ export function JsonLd({ data }: JsonLdProps) {
 }
 
 export function OrganizationSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://anfalglobalexport.in";
+  const baseUrl = "https://anfalglobalexport.in";
 
   const schema = {
     "@context": "https://schema.org",
