@@ -80,6 +80,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          storageKey="export-web-theme"
         >
           {children}
           <OrganizationSchema />
