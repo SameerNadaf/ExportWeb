@@ -70,6 +70,7 @@ export function CertificationsContent({
                   src={cert.imageUrl}
                   alt={cert.title}
                   fill
+                  unoptimized
                   className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
