@@ -14,6 +14,7 @@ export function CertificateManager({
 }: CertificateManagerProps) {
   const [certificates, setCertificates] =
     useState<Certificate[]>(initialCertificates);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -86,6 +87,7 @@ export function CertificateManager({
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this certificate?")) return;
+    setDeletingId(id);
 
     try {
       const res = await fetch(`/api/admin/certificates?id=${id}`, {
@@ -98,6 +100,8 @@ export function CertificateManager({
     } catch (error) {
       console.error("Error deleting certificate:", error);
       alert("Failed to delete certificate.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -218,10 +222,15 @@ export function CertificateManager({
               </h3>
               <button
                 onClick={() => cert.id && handleDelete(cert.id)}
-                className="text-muted-foreground hover:text-red-600 dark:hover:text-red-400 p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                disabled={deletingId === cert.id}
+                className="text-muted-foreground hover:text-red-600 dark:hover:text-red-400 p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50 disabled:pointer-events-none"
                 title="Delete"
               >
-                <Trash2 className="h-4 w-4" />
+                {deletingId === cert.id ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Trash2 className="h-4 w-4" />
+                )}
               </button>
             </div>
           </div>
