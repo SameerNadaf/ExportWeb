@@ -105,12 +105,22 @@ export async function POST(request: Request) {
     const smtpHost = process.env.SMTP_HOST;
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const isSecure = smtpPort === 465; // Auto-detect secure connection based on port
+
+    console.log("SMTP Config:", {
+      host: smtpHost,
+      port: smtpPort,
+      secure: isSecure,
+      user: smtpUser,
+      pass: smtpPass ? "******" : "MISSING", // Mask password
+    });
 
     if (smtpHost && smtpUser && smtpPass) {
       const transporter = nodemailer.createTransport({
         host: smtpHost,
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: Boolean(process.env.SMTP_SECURE) || false,
+        port: smtpPort,
+        secure: isSecure, // true for 465, false for other ports
         auth: {
           user: smtpUser,
           pass: smtpPass,
