@@ -16,21 +16,36 @@ export function JsonLd({ data }: JsonLdProps) {
 }
 
 export function OrganizationSchema() {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+    "https://anfalglobalexport.in";
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Anfal Global Export",
-    url: "https://anfalglobalexport.in",
-    logo: "https://anfalglobalexport.in/logo.png", // Ensure this exists or use a default
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+91-XXXXXXXXXX", // Needs to be updated with real info
-      contactType: "customer service",
-      areaServed: "World",
-      availableLanguage: "English",
-    },
+    url: baseUrl,
+    logo: `${baseUrl}/logo.png`,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+91-6362534842",
+        contactType: "sales",
+        areaServed: "World",
+        availableLanguage: "English",
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: "+91-9731423320",
+        contactType: "customer service",
+        areaServed: "World",
+        availableLanguage: "English",
+      },
+    ],
     sameAs: [
-      // Add social profiles here
+      "https://www.instagram.com/anfalglobal/",
+      "https://www.linkedin.com/in/anfal-global-export-6612283a3",
     ],
   };
 
