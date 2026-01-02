@@ -18,7 +18,10 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "https://anfalglobalexport.in"
+    process.env.NEXT_PUBLIC_BASE_URL ||
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000")
   ),
   title: {
     default: "Anfal Global Export | Premium Spices, Fruits & Vegetables",
