@@ -3,6 +3,8 @@
 import { Product } from "@/types/firestore";
 import { ProductCard } from "./ProductCard";
 import { motion } from "framer-motion";
+import { PackageOpen } from "lucide-react";
+import Link from "next/link";
 
 interface ProductGridProps {
   products: Product[];
@@ -14,11 +16,24 @@ export function ProductGrid({ products }: ProductGridProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center py-20"
+        className="flex flex-col items-center justify-center py-24 text-center px-4"
       >
-        <p className="text-muted-foreground text-lg">
-          No products found in this category.
+        <div className="bg-primary/10 p-6 rounded-full mb-6">
+          <PackageOpen className="w-12 h-12 text-primary" />
+        </div>
+        <h3 className="text-xl font-heading font-semibold text-foreground mb-2">
+          No Products Found
+        </h3>
+        <p className="text-muted-foreground text-base max-w-md mb-8">
+          We currently don't have any products in this category. Please check
+          back later or browse our full collection.
         </p>
+        <Link
+          href="/products"
+          className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+        >
+          Browse All Products
+        </Link>
       </motion.div>
     );
   }
