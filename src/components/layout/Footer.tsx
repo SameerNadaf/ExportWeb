@@ -10,14 +10,15 @@ export async function Footer() {
     <FooterAnimator>
       <footer className="w-full border-t border-border bg-muted/30">
         <div className="container mx-auto px-4 py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             <div className="space-y-4">
               <span className="text-xl font-heading text-primary tracking-tight">
                 <span className="font-bold">Anfal</span>
                 <span className="text-accent">GlobalExport</span>
               </span>
               <p className="text-sm text-muted-foreground">
-                Premium-quality organic spices, fruits, and vegetables sourced from certified farms and exported at peak freshness.
+                Premium-quality organic spices, fruits, and vegetables sourced
+                from certified farms and exported at peak freshness.
               </p>
             </div>
 
