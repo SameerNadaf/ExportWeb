@@ -51,7 +51,7 @@ export function ContactContent({ data }: ContactContentProps) {
             <h3 className="text-xl font-bold mb-4">Head Office</h3>
             <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
               {data?.address ||
-                `123 Export Plaza, Sector 5\nMumbai, Maharashtra\nIndia - 400001`}
+                `ANFAL GLOBAL EXPORT\nwalikar complex, Ganga nagar\nT.G Road Hangal-581104`}
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export function ContactContent({ data }: ContactContentProps) {
 
           <div className="pt-4 h-[200px]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d77.49085516053351!3d12.953959988118815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1719220000000!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3857.8728873527457!2d75.1326697!3d14.776189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb94f9fbdfefde1%3A0x50dd51a93d219478!2sQ4GM%2BC3M%2C%20SH1%2C%20Hangal%2C%20Karnataka%20581104!5e0!3m2!1sen!2sin!4v1767451107493!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0, borderRadius: "0.75rem" }}
